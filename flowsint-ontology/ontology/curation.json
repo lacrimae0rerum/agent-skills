@@ -1,0 +1,253 @@
+{
+  "$comment": "Hand-authored semantics merged by scripts/build_ontology.py. Native facts (types, fields, identity, categories, observed edges) come from the Flowsint checkout; this file adds taxonomy domains, relationship definitions, extensions, evidence and sensitivity policy. Edit here, then rebuild.",
+  "version": "1.0.0",
+  "conventions": {
+    "node_type_in_json": "Lowercase registry key (\"domain\", \"socialaccount\"), as Flowsint stores nodeType and as native exports emit it. PascalCase class names (\"Domain\") are used in GraphQL and Markdown. Lookup is case-insensitive in Flowsint.",
+    "node_id": "Import-local id = <key>:<canonical identity>. The identity comes from the type's identity selector and canonicalizers (identity-config-v1). Composite selectors join values with '|'. Values longer than 96 characters, values with tabs, newlines, or other control characters, and identity values of sensitivity class secret, financial, or government_id use <key>:h:<first 16 hex of sha256(canonical)>. Never reuse one id for two different entities.",
+    "node_label": "The Flowsint compute_label() result. emit.py computes it with the real Pydantic model when a Flowsint interpreter is available; otherwise it falls back to the UI label_key, then the primary field.",
+    "properties": "Only fields of the Flowsint type, with their declared names. Flowsint types accept extra keys (extra=allow); emit.py keeps unknown keys and reports them. Never use reserved property names.",
+    "relationship_label": "UPPER_SNAKE_CASE verb phrase, read source -> target. Use a label from the relationship catalog. Prefer a native label when its definition fits. Use an extension label only when no native label fits. IS_RELATED_TO is the last resort and needs a caption that states the nature of the link.",
+    "relationship_direction": "Emit one direction only. Never emit a relationship and its inverse. For symmetric labels, order the endpoints by id.",
+    "relationship_properties": "Native edge properties are date, caption, type, weight, confidence_level. Put fact qualifiers (role, start_date, end_date, amount, currency) in properties as well; keep evidence in extensions.",
+    "nested_vs_edge": "Flowsint types can embed other types (Whois.domain, Individual.email_addresses). When an embedded entity matters to the investigation, also emit it as its own node and connect it with the matching relationship, as the enrichers do.",
+    "one_fact_one_edge": "Each relationship is one claim that can be true or false. Split compound sentences into several edges. Time-bound facts carry date or start_date/end_date.",
+    "uncertain_identity": "Two mentions that may denote the same entity are two nodes linked by POSSIBLY_SAME_AS with evidence. Never merge on a guess. Merge only when the canonical identity is equal.",
+    "default_label": "IS_RELATED_TO"
+  },
+  "reserved_properties": ["id", "x", "y", "nodeLabel", "label", "nodeType", "type", "nodeImage", "nodeIcon", "nodeColor", "nodeSize", "created_at", "sketch_id"],
+  "evidence_model": {
+    "where": "Node and relationship evidence lives in extensions[\"flowsint-ontology.evidence\"] = {version: 1, data: {confidence, status, evidence: [...]}}. A short summary goes in node.metadata (extraction_id, confidence, sources) and in relationship.properties.confidence_level. The source catalog lives in the top-level extensions[\"flowsint-ontology.extraction\"].",
+    "evidence_item": {
+      "source": "Id of a source in the source catalog (S1, S2, ...). Required.",
+      "locator": "Where in the source: URL fragment, page and paragraph, line, timestamp, message id. Required when the source has more than one part.",
+      "quote": "Verbatim excerpt that supports the claim, at most 300 characters. Redact secrets.",
+      "method": "stated | observed | inferred | enriched | derived",
+      "observed_at": "ISO 8601 date or datetime at which the fact was true or observed, if known.",
+      "confidence": "Number 0..1 for this item."
+    },
+    "methods": {
+      "stated": "The source asserts the fact in words (a document, a person in a conversation, a profile field).",
+      "observed": "The agent or a tool saw the fact directly in technical data (DNS answer, HTTP response, file hash).",
+      "inferred": "The agent concluded the fact from other facts. State the reasoning in the quote or in a gap note. Cap confidence at 0.7 unless a second independent source confirms.",
+      "enriched": "A Flowsint enricher or an external tool produced the fact. Name the tool in locator.",
+      "derived": "The fact follows mechanically from another value (email domain part -> Domain, URL host -> Domain). Confidence follows the parent value."
+    },
+    "source_kinds": ["web", "social_media", "document", "conversation", "finding", "dataset", "public_record", "leak", "tool_output", "image_media", "other"],
+    "source_reliability": {
+      "scale": "Admiralty / NATO source reliability",
+      "A": "Completely reliable: authoritative registry, official record, direct technical observation.",
+      "B": "Usually reliable: established outlet, reputable vendor report, verified account.",
+      "C": "Fairly reliable: generally accurate source with occasional errors.",
+      "D": "Not usually reliable: anonymous blog, unverified account, scraped aggregator.",
+      "E": "Unreliable: known for errors, deception, or fabrication.",
+      "F": "Reliability cannot be judged: new or unknown source."
+    },
+    "confidence_scale": {
+      "confirmed": [0.9, 1.0, "Two or more independent reliable sources, or direct technical observation."],
+      "probable": [0.7, 0.9, "One reliable source, consistent with other facts."],
+      "possible": [0.4, 0.7, "One weak source, or an inference from reliable facts."],
+      "doubtful": [0.1, 0.4, "Weak, contradicted, or single unreliable source."],
+      "refuted": [0.0, 0.1, "Evidence shows the claim is false. Keep only when the refutation matters."]
+    },
+    "combining": "Node or edge confidence = 1 - product(1 - c_i) over independent evidence items, capped at 0.99; dependent items (same origin) count once. emit.py applies this when a node or edge has no explicit confidence."
+  },
+  "sensitivity_classes": {
+    "special_category": {
+      "basis": "GDPR art. 9 and art. 10 (racial or ethnic origin, political opinions, religious beliefs, health, genetic and biometric data, criminal convictions and offences).",
+      "rule": "Record only when the input states it explicitly and the investigative purpose requires it. Never infer it. emit.py lists every such value in the Markdown report."
+    },
+    "government_id": {
+      "basis": "National identifiers (passport, ID card, SSN, tax id, driving licence, voter id).",
+      "rule": "Record only when stated in the input and required by the purpose. Never guess a format or complete a partial number."
+    },
+    "financial": {
+      "basis": "Account numbers, card numbers, balances, income, credit data.",
+      "rule": "Record when stated and required. Keep the value exact because it is an identity field; the report masks it to the last 4 characters."
+    },
+    "secret": {
+      "basis": "Live authentication material: passwords, CVV, session tokens, API keys, private keys, seed phrases.",
+      "rule": "Never record plaintext. Passwords: keep only a hash the source provides; never hash a plaintext password yourself (weak passwords are reversible); otherwise omit it and list it in excluded. High-entropy tokens and keys: store sha256:<hex> or a masked form (****1234). Node ids for secret identity values are hashed. emit.py blocks values that look like plaintext secrets."
+    }
+  },
+  "sensitivity": {
+    "Individual": {
+      "ethnicity": "special_category", "skin_tone": "special_category", "religion": "special_category",
+      "political_affiliation": "special_category", "disabilities": "special_category", "blood_type": "special_category",
+      "is_smoker": "special_category", "cause_of_death": "special_category", "dna_profile": "special_category",
+      "fingerprints": "special_category", "facial_recognition_id": "special_category", "iris_scan": "special_category",
+      "voice_print": "special_category", "criminal_record": "special_category", "arrest_history": "special_category",
+      "convictions": "special_category",
+      "passport_number": "government_id", "drivers_license": "government_id", "social_security_number": "government_id",
+      "national_id": "government_id", "voter_id": "government_id", "tax_id": "government_id",
+      "bank_accounts": "financial", "credit_score": "financial", "net_worth": "financial", "annual_income": "financial"
+    },
+    "BankAccount": {"account_number": "financial", "iban": "financial", "routing_number": "financial", "balance": "financial"},
+    "CreditCard": {"card_number": "financial", "expiry_date": "financial", "cvv": "secret", "credit_limit": "financial", "available_credit": "financial"},
+    "Credential": {"password_hash": "secret"},
+    "Session": {"session_id": "secret"}
+  },
+  "domains": [
+    {"id": "actor", "label": "Actors", "definition": "Persons and organisations that act, own, control, or employ; plus reified affiliations between them.", "types": ["Individual", "Organization", "Affiliation"]},
+    {"id": "persona", "label": "Personas and digital identities", "definition": "Handles, accounts, and aliases through which an actor appears online.", "types": ["Username", "SocialAccount", "Alias", "Gravatar"]},
+    {"id": "contact", "label": "Contact points and places", "definition": "Selectors that reach or locate an actor: e-mail, phone, postal address or place.", "types": ["Email", "Phone", "Location"]},
+    {"id": "infrastructure", "label": "Internet infrastructure", "definition": "Naming, addressing, routing, and registration of internet resources.", "types": ["Domain", "Ip", "CIDR", "ASN", "Port", "DNSRecord", "SSLCertificate", "Whois"]},
+    {"id": "web", "label": "Web presence", "definition": "Websites and what they run or embed.", "types": ["Website", "WebTracker", "Technology", "Script"]},
+    {"id": "security", "label": "Access and threat", "definition": "Authentication material, devices, sessions, malicious software, and exposure events.", "types": ["Credential", "Session", "Device", "Malware", "Breach", "Leak"]},
+    {"id": "content", "label": "Content and artefacts", "definition": "Documents, files, messages, and free text that carry or mention facts.", "types": ["Document", "File", "Message", "Phrase"]},
+    {"id": "financial", "label": "Financial instruments and value transfer", "definition": "Accounts, cards, wallets, transactions, and tokens.", "types": ["BankAccount", "CreditCard", "CryptoWallet", "CryptoWalletTransaction", "CryptoNFT"]},
+    {"id": "assessment", "label": "Analytic assessments", "definition": "Scores and profiles that evaluate another entity. They are judgements, not observations.", "types": ["RiskProfile", "ReputationScore"]},
+    {"id": "physical", "label": "Physical objects", "definition": "Tangible items of investigative interest.", "types": ["Weapon"]}
+  ],
+  "type_hints": {
+    "Individual": {"recognize": "A named natural person.", "identity_tip": "full_name is the identity; set it even when only first_name/last_name are known (\"Jane Doe\").", "avoid": "Do not create an Individual from a bare handle; use Username."},
+    "Organization": {"recognize": "Company, agency, NGO, group, party, criminal organisation.", "identity_tip": "name as written in the most authoritative source; put legal identifiers (siren, ...) in properties.", "avoid": "Do not use Organization for a brand of software (Technology) or a website (Website)."},
+    "Affiliation": {"recognize": "A role of a person in an organisation that needs its own dates, department, or source.", "identity_tip": "organization is the identity; prefer a WORKS_FOR / MEMBER_OF edge with role and dates unless the affiliation must carry its own evidence trail.", "avoid": "Do not duplicate a WORKS_FOR edge with an Affiliation node for the same fact."},
+    "Username": {"recognize": "A handle without a confirmed platform account (\"@jdoe\", \"jdoe92\").", "identity_tip": "value without the leading @; platform as property.", "avoid": "When the platform and profile are known, also create SocialAccount and link Username -HAS_SOCIAL_ACCOUNT-> SocialAccount."},
+    "SocialAccount": {"recognize": "A concrete account on a platform (profile URL, platform + handle).", "identity_tip": "identity = platform + username.value; always set both.", "avoid": "Do not put the profile URL only in Website."},
+    "Alias": {"recognize": "Another name an actor uses: nickname, nom de guerre, trade name.", "identity_tip": "alias string as written.", "avoid": "A handle on a platform is a Username, not an Alias."},
+    "Gravatar": {"recognize": "Gravatar profile tied to an e-mail hash.", "identity_tip": "hash (lowercase md5/sha256 of the e-mail)."},
+    "Email": {"recognize": "RFC 5322 addr-spec.", "identity_tip": "preserve local-part case; domain lowercased IDNA.", "avoid": "Obfuscated forms (\"jdoe [at] example [dot] com\") must be de-obfuscated, with method=derived."},
+    "Phone": {"recognize": "Telephone number.", "identity_tip": "E.164 (+34600000000). A national number without a known region cannot be canonicalised: keep the raw text in Phrase and add a gap.", "avoid": "Do not guess the country code."},
+    "Location": {"recognize": "Postal address or named place.", "identity_tip": "address, city, country, and zip are all required by the type; use \"unknown\" only when the source lacks the part and say so in a gap.", "avoid": "Do not invent coordinates."},
+    "Domain": {"recognize": "Registrable domain or hostname.", "identity_tip": "lowercase IDNA A-label, no trailing dot; root=true for the registrable domain.", "avoid": "A URL is a Website; derive its Domain with BELONGS_TO_DOMAIN."},
+    "Ip": {"recognize": "IPv4 or IPv6 address.", "identity_tip": "compressed canonical form.", "avoid": "Defanged forms (1.2.3[.]4) are re-fanged with method=derived."},
+    "CIDR": {"recognize": "IP prefix (192.0.2.0/24).", "identity_tip": "network address with host bits masked."},
+    "ASN": {"recognize": "Autonomous system number (AS15169).", "identity_tip": "asn_str in AS<digits> form."},
+    "Port": {"recognize": "Open or observed TCP/UDP port on a host.", "identity_tip": "number; identity is the number alone, so always connect it to its Ip with HAS_PORT."},
+    "DNSRecord": {"recognize": "A specific DNS resource record.", "identity_tip": "record_type + value."},
+    "SSLCertificate": {"recognize": "X.509 certificate.", "identity_tip": "subject; put fingerprints in properties."},
+    "Whois": {"recognize": "A WHOIS registration record of a domain.", "identity_tip": "nested domain.domain."},
+    "Website": {"recognize": "A URL or web page.", "identity_tip": "absolute URL with scheme; default port removed.", "avoid": "Do not use Website for a bare domain."},
+    "WebTracker": {"recognize": "Analytics/ad tracker id (UA-, G-, GTM-, pixel id).", "identity_tip": "tracker_id."},
+    "Technology": {"recognize": "Software, framework, or product a site or host uses.", "identity_tip": "name; version as property."},
+    "Script": {"recognize": "A script file or snippet (JS, PowerShell, bash).", "identity_tip": "script_id; put hashes in properties."},
+    "Credential": {"recognize": "Login material tied to a service.", "identity_tip": "username; service = the system it logs into (domain or app), omitted when unknown. The leak it came from is a Leak node via FOUND_IN_LEAK.", "avoid": "Never store a plaintext password and never hash one yourself; keep password_hash only when the source gives a hash."},
+    "Session": {"recognize": "An authenticated session or session token.", "identity_tip": "session_id is a secret: store sha256:<hex>."},
+    "Device": {"recognize": "Phone, computer, IoT device, or browser fingerprint.", "identity_tip": "device_id (IMEI, serial, hardware id, stealer-log machine id)."},
+    "Malware": {"recognize": "Malware family or sample name.", "identity_tip": "name; family as property; sample hashes in sample_hashes or as File nodes."},
+    "Breach": {"recognize": "A named data breach (HIBP-style).", "identity_tip": "name."},
+    "Leak": {"recognize": "A leak or dump that is not a catalogued breach (paste, combolist, internal leak).", "identity_tip": "name."},
+    "Document": {"recognize": "A document with title (report, PDF, contract, article).", "identity_tip": "title; hashes and source_url in properties.", "avoid": "The analysed input itself becomes a Document node only when it matters to the investigation."},
+    "File": {"recognize": "A file seen on disk or in transit.", "identity_tip": "sha256 > sha1 > md5 > filename (first present)."},
+    "Message": {"recognize": "An e-mail, chat, SMS, or post with sender/recipients.", "identity_tip": "message_id; when the source has none, derive it as <platform>:<sender>:<timestamp>."},
+    "Phrase": {"recognize": "Free text worth keeping that fits no other type (slogan, keyword, unparsed selector).", "identity_tip": "text.", "avoid": "Phrase is the fallback type, not a dumping ground; prefer a precise type."},
+    "BankAccount": {"recognize": "Bank account (IBAN, account number).", "identity_tip": "account_number exactly as written (no separator removal)."},
+    "CreditCard": {"recognize": "Payment card number.", "identity_tip": "digits only. Never store CVV."},
+    "CryptoWallet": {"recognize": "Blockchain address.", "identity_tip": "lowercase Ethereum (0x...) only; keep the case of other chains."},
+    "CryptoWalletTransaction": {"recognize": "An on-chain transaction.", "identity_tip": "hash (lowercase); source wallet is required by the type."},
+    "CryptoNFT": {"recognize": "A non-fungible token.", "identity_tip": "contract_address + token_id; wallet required by the type."},
+    "RiskProfile": {"recognize": "A risk assessment of another entity.", "identity_tip": "entity_id = id of the assessed node."},
+    "ReputationScore": {"recognize": "A provider's reputation score for another entity.", "identity_tip": "entity_id = id of the scored node."},
+    "Weapon": {"recognize": "A weapon of investigative interest.", "identity_tip": "name; serial_number as property."}
+  },
+  "label_templates": {
+    "IS_{contact_type}_CONTACT": {"labels": ["IS_REGISTRANT_CONTACT", "IS_ADMINISTRATIVE_CONTACT", "IS_TECHNICAL_CONTACT", "IS_BILLING_CONTACT"], "reason": "contact_type iterates WHOIS contact roles registrant, administrative, technical, billing (uppercased)."},
+    "IS_{contact_type.upper()}_CONTACT": {"labels": ["IS_REGISTRANT_CONTACT", "IS_ADMINISTRATIVE_CONTACT", "IS_TECHNICAL_CONTACT", "IS_BILLING_CONTACT"], "reason": "contact_type iterates WHOIS contact roles registrant, administrative, technical, billing."}
+  },
+  "label_aliases": {
+    "IS_RELATED_T0": {"canonical": "IS_RELATED_TO", "reason": "Upstream typo (digit zero) in the test-only domain_to_dummy enricher."},
+    "RELATED_TO": {"canonical": "IS_RELATED_TO", "reason": "Default of the embedded agent graph.relations.create tool (domain_tools.py); the UI, enricher base, and importers default to IS_RELATED_TO."}
+  },
+  "edge_call_overrides": {
+    "flowsint-enrichers/src/flowsint_enrichers/domain/to_dummy_individuals.py:54": {"target": "Domain", "note": "item is Domain or Email (dummy data)."},
+    "flowsint-enrichers/src/flowsint_enrichers/email/to_domains.py:310": {"anomaly": "Upstream emits Individual -WORKS_FOR-> Email. Semantically wrong: use Individual -HAS_EMAIL-> Email."}
+  },
+  "extra_observed_calls": [
+    {"label": "TRANSACTION", "source": "CryptoWallet", "target": "CryptoWallet", "enricher": "cryptowallet_to_transactions", "at": "flowsint-core/src/flowsint_core/core/graph/repository.py:865", "resolution": "curated-source-read", "source_expr": "tx.source", "target_expr": "tx.target"},
+    {"label": "IS_RELATED_TO", "source": "Domain", "target": "Email", "enricher": "domain_to_dummy", "at": "flowsint-enrichers/src/flowsint_enrichers/domain/to_dummy_individuals.py:54", "resolution": "curated-source-read", "source_expr": "root", "target_expr": "item", "raw_label": "IS_RELATED_T0"}
+  ],
+  "relationships": {
+    "IS_RELATED_TO": {"status": "native-default", "group": "generic", "definition": "Generic link whose nature no catalogued label expresses. Flowsint default label.", "domain": ["*"], "range": ["*"], "notes": "Last resort. Requires a caption that states the nature of the link; emit.py rejects it without one."},
+
+    "WORKS_FOR": {"status": "native", "group": "affiliation", "definition": "The person is employed by, or works on behalf of, the target (organisation, or the person that WHOIS lists as the main contact).", "domain": ["Individual"], "range": ["Organization", "Individual"], "inverse": "EMPLOYS", "properties": ["role", "start_date", "end_date"], "use_instead_of": ["EMPLOYED_BY", "EMPLOYEE_OF"]},
+    "HAS_LEADER": {"status": "native", "group": "affiliation", "definition": "The organisation has the person as director, officer, executive, or legal representative.", "domain": ["Organization"], "range": ["Individual"], "inverse": "LEADS", "properties": ["role", "start_date", "end_date"], "use_instead_of": ["DIRECTOR_OF", "CEO_OF"]},
+    "MEMBER_OF": {"status": "extension", "group": "affiliation", "definition": "The actor belongs to a group, association, party, board, or network, without an employment relation.", "domain": ["Individual", "Organization"], "range": ["Organization"], "inverse": "HAS_MEMBER", "properties": ["role", "start_date", "end_date"]},
+    "SUBSIDIARY_OF": {"status": "extension", "group": "affiliation", "definition": "The organisation is owned or controlled by the target organisation (subsidiary, branch, front).", "domain": ["Organization"], "range": ["Organization"], "inverse": "PARENT_OF", "properties": ["share_percent", "start_date", "end_date"]},
+    "HAS_AFFILIATION": {"status": "extension", "group": "affiliation", "definition": "The person holds the reified Affiliation (role with its own dates and evidence).", "domain": ["Individual"], "range": ["Affiliation"]},
+    "AFFILIATION_WITH": {"status": "extension", "group": "affiliation", "definition": "The reified Affiliation is with the target organisation.", "domain": ["Affiliation"], "range": ["Organization"]},
+    "RELATIVE_OF": {"status": "extension", "group": "affiliation", "symmetric": true, "definition": "The persons are family members. Put the kind of kinship in properties.type (spouse, parent, sibling, child, ...); for directed kinship order source as the elder or the parent.", "domain": ["Individual"], "range": ["Individual"]},
+    "ASSOCIATE_OF": {"status": "extension", "group": "affiliation", "symmetric": true, "definition": "The actors have a social or business association that no more precise label covers (partner, co-founder, co-defendant, frequent contact).", "domain": ["Individual", "Organization"], "range": ["Individual", "Organization"], "properties": ["type", "start_date", "end_date"]},
+
+    "OWNS": {"status": "native", "group": "control", "definition": "The source legally or beneficially owns the target. Native use: wallet owns NFT.", "domain": ["CryptoWallet", "Individual", "Organization"], "range": ["CryptoNFT", "Organization", "Domain", "Website", "CryptoWallet", "BankAccount", "CreditCard", "Device", "Phone", "Email", "Weapon", "SocialAccount", "Ip", "CIDR", "ASN"], "inverse": "OWNED_BY", "properties": ["share_percent", "start_date", "end_date"], "notes": "For operational control without proven ownership use CONTROLS."},
+    "CONTROLS": {"status": "extension", "group": "control", "definition": "The actor operates or administers the target without proven ownership (account operator, infrastructure administrator, nominee arrangement).", "domain": ["Individual", "Organization"], "range": ["Organization", "Domain", "Website", "SocialAccount", "Username", "Email", "Phone", "Device", "Ip", "CryptoWallet", "BankAccount", "Malware"], "inverse": "CONTROLLED_BY"},
+
+    "HAS_ALIAS": {"status": "extension", "group": "identity", "definition": "The source is also known by the alias.", "domain": ["Individual", "Organization", "Username", "SocialAccount"], "range": ["Alias"], "inverse": "ALIAS_OF"},
+    "POSSIBLY_SAME_AS": {"status": "extension", "group": "identity", "symmetric": true, "definition": "Identity hypothesis: the two nodes may denote the same real-world entity. Both nodes stay separate until a human decides.", "domain": ["*"], "range": ["*"], "notes": "Both endpoints must have the same type. confidence_level states the strength of the hypothesis; evidence states the matching features."},
+    "HAS_USERNAME": {"status": "native", "group": "identity", "definition": "The source uses or exposes the handle. Native use: the local part of an e-mail as a candidate handle.", "domain": ["Email", "Individual", "Organization", "Credential"], "range": ["Username"], "inverse": "USERNAME_OF"},
+    "HAS_SOCIAL_ACCOUNT": {"status": "native", "group": "identity", "definition": "The handle (or actor) has the account on a platform.", "domain": ["Username", "Individual", "Organization"], "range": ["SocialAccount"], "inverse": "SOCIAL_ACCOUNT_OF"},
+    "HAS_GRAVATAR": {"status": "native", "group": "identity", "definition": "The e-mail address has the Gravatar profile.", "domain": ["Email"], "range": ["Gravatar"]},
+    "CONNECTION_WITH": {"status": "native", "group": "identity", "definition": "A breach or intelligence record links the selector to the person. Weak association, not proof of ownership.", "domain": ["Domain", "Email", "Ip", "Username", "Phone"], "range": ["Individual"], "notes": "Native in the dehashed and intelligence enrichers. Prefer HAS_EMAIL / HAS_PHONE / HAS_USERNAME (person as source) when a source states that the person uses the selector."},
+
+    "HAS_EMAIL": {"status": "native", "group": "contact", "definition": "The source uses, publishes, or is reachable at the e-mail address.", "domain": ["Individual", "Organization", "Website", "SocialAccount", "Document"], "range": ["Email"], "inverse": "EMAIL_OF"},
+    "HAS_PHONE": {"status": "native", "group": "contact", "definition": "The source uses, publishes, or is reachable at the phone number.", "domain": ["Individual", "Organization", "Website", "SocialAccount", "Document"], "range": ["Phone"], "inverse": "PHONE_OF"},
+    "LIVES_AT": {"status": "native", "group": "location", "definition": "The person resides or resided at the place.", "domain": ["Individual"], "range": ["Location"], "properties": ["start_date", "end_date"]},
+    "HAS_ADDRESS": {"status": "native", "group": "location", "definition": "The organisation's registered or head-office address.", "domain": ["Organization"], "range": ["Location"]},
+    "LOCATED_AT": {"status": "native", "group": "location", "definition": "The source is physically at the place (establishment, server geolocation, device position, item found). Native use: organisation establishment.", "domain": ["Organization", "Ip", "Device", "Weapon", "Individual", "Session", "Message", "File", "Document"], "range": ["Location"], "properties": ["date", "start_date", "end_date"], "notes": "For a person, use LIVES_AT for residence and LOCATED_AT with a date for presence at a time."},
+    "REGISTERED_IN": {"status": "native", "group": "location", "definition": "The domain's registrant is located at the place, according to WHOIS.", "domain": ["Domain"], "range": ["Location"]},
+
+    "RESOLVES_TO": {"status": "native", "group": "infrastructure", "definition": "DNS A/AAAA resolution of the domain returns the IP.", "domain": ["Domain"], "range": ["Ip"], "properties": ["date"]},
+    "REVERSE_RESOLVES_TO": {"status": "native", "group": "infrastructure", "definition": "The IP's PTR record names the domain.", "domain": ["Ip"], "range": ["Domain"], "properties": ["date"], "notes": "Not a strict inverse of RESOLVES_TO: PTR and A records are independent. Emit the one actually observed."},
+    "HOSTS": {"status": "native", "group": "infrastructure", "definition": "The IP serves the domain or website (passive DNS, reverse-IP, virtual hosting).", "domain": ["Ip"], "range": ["Domain", "Website"], "properties": ["date", "start_date", "end_date"]},
+    "HAS_SUBDOMAIN": {"status": "native", "group": "infrastructure", "definition": "The parent domain has the child hostname.", "domain": ["Domain"], "range": ["Domain"], "inverse": "SUBDOMAIN_OF"},
+    "HAS_RELATED_DOMAIN": {"status": "native", "group": "infrastructure", "definition": "The domains share registrant data or history (reverse WHOIS, historical records).", "domain": ["Domain"], "range": ["Domain"], "notes": "Direction from the investigated domain to the discovered domain."},
+    "HAS_WHOIS": {"status": "native", "group": "infrastructure", "definition": "The domain has the WHOIS registration record.", "domain": ["Domain"], "range": ["Whois"]},
+    "REGISTERED_BY": {"status": "native", "group": "infrastructure", "definition": "The WHOIS record names the target as registrant contact.", "domain": ["Whois"], "range": ["Email", "Individual", "Organization"]},
+    "HAS_DOMAIN": {"status": "native", "group": "infrastructure", "definition": "The source is bound to the domain: registrant organisation, e-mail domain part, or website host.", "domain": ["Organization", "Email", "Website"], "range": ["Domain"]},
+    "HAS_REGISTERED_DOMAIN": {"status": "native", "group": "infrastructure", "definition": "The actor or e-mail appears as registrant of the domain (reverse WHOIS).", "domain": ["Email", "Individual", "Organization"], "range": ["Domain"], "properties": ["date"]},
+    "IS_REGISTRANT_CONTACT": {"status": "native", "group": "infrastructure", "definition": "The actor is the registrant contact of the domain in WHOIS.", "domain": ["Individual", "Organization"], "range": ["Domain"], "properties": ["date"]},
+    "IS_ADMINISTRATIVE_CONTACT": {"status": "native", "group": "infrastructure", "definition": "The actor is the administrative contact of the domain in WHOIS.", "domain": ["Individual", "Organization"], "range": ["Domain"], "properties": ["date"]},
+    "IS_TECHNICAL_CONTACT": {"status": "native", "group": "infrastructure", "definition": "The actor is the technical contact of the domain in WHOIS.", "domain": ["Individual", "Organization"], "range": ["Domain"], "properties": ["date"]},
+    "IS_BILLING_CONTACT": {"status": "native", "group": "infrastructure", "definition": "The actor is the billing contact of the domain in WHOIS.", "domain": ["Individual", "Organization"], "range": ["Domain"], "properties": ["date"]},
+    "HOSTED_IN": {"status": "native", "group": "infrastructure", "definition": "The domain's addresses are announced by the autonomous system.", "domain": ["Domain", "Website"], "range": ["ASN"]},
+    "BELONGS_TO": {"status": "native", "group": "infrastructure", "definition": "The IP, prefix, or organisation belongs to the autonomous system (routing or operator relation).", "domain": ["Ip", "CIDR", "Organization"], "range": ["ASN"]},
+    "ANNOUNCES": {"status": "native", "group": "infrastructure", "definition": "The autonomous system originates the IP prefix in BGP.", "domain": ["ASN"], "range": ["CIDR"], "properties": ["date"]},
+    "CONTAINS": {"status": "native", "group": "infrastructure", "definition": "The source contains the target: prefix contains address or sub-prefix; archive or document contains a file. Native use: CIDR contains IP.", "domain": ["CIDR", "File", "Document", "Leak"], "range": ["Ip", "CIDR", "File", "Document"]},
+    "HAS_PORT": {"status": "native", "group": "infrastructure", "definition": "The IP exposes the port (open, filtered, or observed).", "domain": ["Ip"], "range": ["Port"], "properties": ["date"]},
+    "HAS_DNS_RECORD": {"status": "extension", "group": "infrastructure", "definition": "The domain has the DNS resource record.", "domain": ["Domain"], "range": ["DNSRecord"], "properties": ["date"]},
+    "POINTS_TO": {"status": "extension", "group": "infrastructure", "definition": "The DNS record's value designates the target (A/AAAA -> Ip; CNAME/NS/MX/PTR -> Domain).", "domain": ["DNSRecord"], "range": ["Ip", "Domain"]},
+    "HAS_CERTIFICATE": {"status": "extension", "group": "infrastructure", "definition": "The host presents the X.509 certificate.", "domain": ["Domain", "Website", "Ip"], "range": ["SSLCertificate"], "properties": ["date"]},
+    "CERTIFICATE_COVERS": {"status": "extension", "group": "infrastructure", "definition": "The certificate names the domain in its subject CN or SAN.", "domain": ["SSLCertificate"], "range": ["Domain"]},
+    "ISSUED_BY": {"status": "extension", "group": "infrastructure", "definition": "The certificate or card was issued by the organisation (CA, card issuer).", "domain": ["SSLCertificate", "CreditCard"], "range": ["Organization"]},
+
+    "HAS_WEBSITE": {"status": "native", "group": "web", "definition": "The domain serves the website.", "domain": ["Domain", "Organization", "Individual"], "range": ["Website"]},
+    "TLS_INFO": {"status": "native", "group": "web", "definition": "A TLS handshake on the domain produced the HTTPS website node that carries the certificate details (domain_to_tls).", "domain": ["Domain"], "range": ["Website"], "notes": "Native only. For new certificate facts use HAS_CERTIFICATE -> SSLCertificate."},
+    "BELONGS_TO_DOMAIN": {"status": "native", "group": "web", "definition": "The website's host is the domain.", "domain": ["Website"], "range": ["Domain"]},
+    "LINKS_TO": {"status": "native", "group": "web", "definition": "The source contains a hyperlink to the target.", "domain": ["Website", "Domain", "Document", "Message", "SocialAccount"], "range": ["Website", "Domain"], "properties": ["date"]},
+    "IS_SUBDOMAIN": {"status": "native", "group": "web", "definition": "Native direction (website_to_subdomains): the parent website -> a website served on one of its subdomains.", "domain": ["Website"], "range": ["Website"], "notes": "The label reads backwards; keep the native direction. For Domain -> Domain use HAS_SUBDOMAIN."},
+    "USES_TECHNOLOGY": {"status": "native", "group": "web", "definition": "The website or host runs the technology.", "domain": ["Website", "Ip", "Domain", "Organization"], "range": ["Technology"], "properties": ["date"]},
+    "HAS_TRACKER": {"status": "native", "group": "web", "definition": "The website embeds the tracker id.", "domain": ["Website"], "range": ["WebTracker"], "properties": ["date"]},
+    "HAS_INNER_TEXT": {"status": "native", "group": "web", "definition": "The website's visible text contains the phrase.", "domain": ["Website"], "range": ["Phrase"]},
+    "HAS_SCRIPT": {"status": "extension", "group": "web", "definition": "The website loads or embeds the script.", "domain": ["Website"], "range": ["Script"]},
+
+    "HAS_CREDENTIAL": {"status": "extension", "group": "security", "definition": "The selector or actor has the login credential.", "domain": ["Email", "Username", "Individual", "SocialAccount", "Phone"], "range": ["Credential"]},
+    "HAS_SESSION": {"status": "extension", "group": "security", "definition": "The credential or account opened the session.", "domain": ["Credential", "Username", "SocialAccount", "Individual"], "range": ["Session"]},
+    "ORIGINATED_FROM": {"status": "extension", "group": "security", "definition": "The session, message, or connection came from the IP or device.", "domain": ["Session", "Message", "Credential"], "range": ["Ip", "Device"], "properties": ["date"]},
+    "ASSOCIATED_WITH_DEVICE": {"status": "native", "group": "security", "definition": "The selector was found on, or used from, the device (infostealer logs). Native use: e-mail, phone, username.", "domain": ["Email", "Phone", "Username", "Individual", "Credential", "SocialAccount", "Session"], "range": ["Device"], "properties": ["date"]},
+    "FOUND_IN_BREACH": {"status": "native", "group": "security", "definition": "The selector appears in the catalogued breach.", "domain": ["Email", "Username", "Phone", "Credential", "CreditCard", "BankAccount", "Domain"], "range": ["Breach"], "properties": ["date"]},
+    "FOUND_IN_LEAK": {"status": "extension", "group": "security", "definition": "The selector or artefact appears in the leak or dump.", "domain": ["Email", "Username", "Phone", "Credential", "CreditCard", "BankAccount", "Individual", "Organization", "Domain", "Document", "File"], "range": ["Leak"], "properties": ["date"]},
+    "USES_MALWARE": {"status": "extension", "group": "security", "definition": "The actor deploys or operates the malware.", "domain": ["Individual", "Organization"], "range": ["Malware"], "properties": ["start_date", "end_date"]},
+    "COMMUNICATES_WITH": {"status": "extension", "group": "security", "definition": "The malware, device, or host makes network contact with the target (C2, beacon, exfiltration endpoint).", "domain": ["Malware", "Device", "Ip", "File", "Script"], "range": ["Ip", "Domain", "Website"], "properties": ["date", "type"]},
+    "DROPS": {"status": "extension", "group": "security", "definition": "The malware or script writes or downloads the file, script, or second-stage malware.", "domain": ["Malware", "Script", "File"], "range": ["File", "Script", "Malware"]},
+    "INFECTED": {"status": "extension", "group": "security", "definition": "The malware infected the device.", "domain": ["Malware"], "range": ["Device"], "properties": ["date"]},
+    "SAMPLE_OF": {"status": "extension", "group": "security", "definition": "The file or script is a sample of the malware family.", "domain": ["File", "Script"], "range": ["Malware"]},
+    "DISTRIBUTED_VIA": {"status": "extension", "group": "security", "definition": "The malware or file is distributed through the website, domain, message, or account.", "domain": ["Malware", "File", "Script"], "range": ["Website", "Domain", "Message", "SocialAccount"], "properties": ["date"]},
+
+    "SENT": {"status": "extension", "group": "communication", "definition": "The sender (account, address, number, or actor) sent the message.", "domain": ["Email", "Phone", "Username", "SocialAccount", "Individual", "Organization"], "range": ["Message"], "properties": ["date"]},
+    "SENT_TO": {"status": "extension", "group": "communication", "definition": "The message was addressed to the recipient.", "domain": ["Message"], "range": ["Email", "Phone", "Username", "SocialAccount", "Individual", "Organization"], "properties": ["type"], "notes": "properties.type = to | cc | bcc | dm | group."},
+    "REPLY_TO": {"status": "extension", "group": "communication", "definition": "The message replies to the earlier message.", "domain": ["Message"], "range": ["Message"]},
+    "HAS_ATTACHMENT": {"status": "extension", "group": "communication", "definition": "The message carries the file or document.", "domain": ["Message"], "range": ["File", "Document"]},
+
+    "AUTHORED": {"status": "extension", "group": "content", "definition": "The actor or account wrote or created the content.", "domain": ["Individual", "Organization", "Username", "SocialAccount"], "range": ["Document", "Message", "Script", "File", "Phrase", "Website"], "properties": ["date"]},
+    "PUBLISHED_ON": {"status": "extension", "group": "content", "definition": "The content was published at the website or account.", "domain": ["Document", "Message", "File", "Phrase", "Script"], "range": ["Website", "SocialAccount"], "properties": ["date"]},
+    "MENTIONS": {"status": "extension", "group": "content", "definition": "The content names or refers to the entity without asserting a stronger relation.", "domain": ["Document", "Message", "Website", "Phrase", "File", "SocialAccount"], "range": ["*"], "properties": ["date"], "notes": "Use it to link a relevant source document to the entities it reports; use the specific label for the fact itself."},
+
+    "TRANSACTION": {"status": "native", "group": "financial", "definition": "On-chain transfer from the source wallet to the target wallet. Native: created by cryptowallet_to_transactions via create_wallet_transactions, merged on hash.", "domain": ["CryptoWallet"], "range": ["CryptoWallet"], "properties": ["hash", "value", "timestamp", "block_number", "contract_address"], "notes": "Put the transaction hash in properties.hash: Flowsint merges TRANSACTION edges on it."},
+    "SENT_TRANSACTION": {"status": "extension", "group": "financial", "definition": "The wallet is the sender of the reified transaction node.", "domain": ["CryptoWallet"], "range": ["CryptoWalletTransaction"]},
+    "TRANSACTION_TO": {"status": "extension", "group": "financial", "definition": "The reified transaction pays the target wallet.", "domain": ["CryptoWalletTransaction"], "range": ["CryptoWallet"]},
+    "TRANSFERRED_TO": {"status": "extension", "group": "financial", "definition": "Off-chain value transfer (wire, card payment, cash) from the source to the target.", "domain": ["BankAccount", "CreditCard", "Individual", "Organization", "CryptoWallet"], "range": ["BankAccount", "Individual", "Organization", "CryptoWallet"], "properties": ["amount", "currency", "date", "reference"], "notes": "For on-chain transfers between wallets use the native TRANSACTION."},
+    "HELD_AT": {"status": "extension", "group": "financial", "definition": "The account or card is held at the financial institution.", "domain": ["BankAccount", "CreditCard", "CryptoWallet"], "range": ["Organization"]},
+
+    "HAS_RISK_PROFILE": {"status": "native", "group": "assessment", "definition": "The entity is assessed by the risk profile. Native use: IP fraud score.", "domain": ["*"], "range": ["RiskProfile"], "properties": ["date"]},
+    "HAS_REPUTATION": {"status": "extension", "group": "assessment", "definition": "The entity has the reputation score from a provider.", "domain": ["*"], "range": ["ReputationScore"], "properties": ["date"]}
+  }
+}

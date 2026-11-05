@@ -1,0 +1,1309 @@
+{
+  "$id": "https://flowsint.io/contracts/import/identity-config-v1.json",
+  "format": "flowsint-identity-config",
+  "version": 1,
+  "status": "frozen-review-configuration-not-runtime",
+  "description": "Conservative identity selectors for the 40 registered Flowsint types. This artifact is review configuration and is not executable runtime code.",
+  "path_semantics": "Dot-separated paths traverse only the explicitly named object members. A missing member, null, unsupported container, or value rejected by its canonicalizer is blocking unless the selector says first_present.",
+  "selector_modes": {
+    "all": "Every field is required and the ordered canonical values form one composite identity.",
+    "first_present": "Choose the first present, supported field in order and use only its canonical value. If none is usable, identity matching blocks."
+  },
+  "canonicalizers": {
+    "asn_as_form": {
+      "input": "string or integer",
+      "algorithm": "Trim a string, remove one case-insensitive leading AS prefix, parse the remaining ASCII decimal digits as a non-negative integer, and emit AS followed by the base-10 integer without leading zeroes. Other forms block.",
+      "case_rule": "uppercase AS prefix",
+      "examples": [
+        {
+          "input": " as0015169 ",
+          "expected": "AS15169"
+        }
+      ]
+    },
+    "cidr_network": {
+      "input": "string",
+      "algorithm": "Parse with Python ipaddress.ip_network semantics using strict=false and emit the compressed network address plus prefix length. Invalid values block.",
+      "case_rule": "protocol canonical form",
+      "examples": [
+        {
+          "input": "192.0.2.129/24",
+          "expected": "192.0.2.0/24"
+        }
+      ]
+    },
+    "credit_card_digits": {
+      "input": "string",
+      "algorithm": "Trim and remove non-ASCII-digit separators, retaining only 0-9. An empty result or any non-separator letter blocks. Validation such as Luhn is separate from identity canonicalization.",
+      "case_rule": "not applicable",
+      "examples": [
+        {
+          "input": "4111 1111-1111 1111",
+          "expected": "4111111111111111"
+        }
+      ]
+    },
+    "crypto_address": {
+      "input": "string",
+      "algorithm": "Apply exact_string first. If the result matches 0x followed by exactly 40 hexadecimal digits, lowercase the complete Ethereum address. Preserve every other cryptocurrency address exactly because case may be meaningful.",
+      "case_rule": "lowercase Ethereum only; preserve all other address case",
+      "examples": [
+        {
+          "input": "0xAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCd",
+          "expected": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"
+        },
+        {
+          "input": "1BoatSLRHtKNngkdXEeobR76b53LETtpyT",
+          "expected": "1BoatSLRHtKNngkdXEeobR76b53LETtpyT"
+        }
+      ]
+    },
+    "dns_value": {
+      "input": "string plus the sibling record_type canonical value",
+      "algorithm": "Apply ip_compressed for exact record_type A or AAAA; apply domain_idna for exact record_type CNAME, NS, or PTR; otherwise apply exact_string. MX and SRV values remain exact because presentation formats vary and no parser contract is frozen.",
+      "case_rule": "record-type-specific",
+      "examples": [
+        {
+          "input": {
+            "record_type": "AAAA",
+            "value": "2001:0DB8:0:0:0:0:0:1"
+          },
+          "expected": "2001:db8::1"
+        },
+        {
+          "input": {
+            "record_type": "CNAME",
+            "value": "BÜCHER.Example."
+          },
+          "expected": "xn--bcher-kva.example"
+        }
+      ]
+    },
+    "domain_idna": {
+      "input": "string",
+      "algorithm": "Apply Unicode NFC and trim, remove one trailing root dot, encode each label as an IDNA2008 A-label under RFC 5890/5891, and lowercase the result. Empty, malformed, or non-domain values block.",
+      "case_rule": "lowercase ASCII domain",
+      "examples": [
+        {
+          "input": " BÜCHER.Example. ",
+          "expected": "xn--bcher-kva.example"
+        }
+      ]
+    },
+    "email_address": {
+      "input": "string",
+      "algorithm": "Apply Unicode NFC and trim, require exactly one valid addr-spec boundary, preserve the local part byte-for-character, and canonicalize the domain with domain_idna. Invalid values block.",
+      "case_rule": "preserve local-part case; lowercase IDNA domain",
+      "examples": [
+        {
+          "input": " Alice@BÜCHER.Example ",
+          "expected": "Alice@xn--bcher-kva.example"
+        }
+      ]
+    },
+    "ethereum_address": {
+      "input": "string",
+      "algorithm": "Apply exact_string, require 0x followed by exactly 40 hexadecimal digits, and lowercase the complete value. Invalid values block.",
+      "case_rule": "lowercase",
+      "examples": [
+        {
+          "input": "0xAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCd",
+          "expected": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"
+        }
+      ]
+    },
+    "exact_integer": {
+      "input": "JSON integer",
+      "algorithm": "Require a JSON integer and emit its base-10 representation without leading zeroes. Strings, floats, booleans, arrays, objects, and null block.",
+      "case_rule": "not applicable",
+      "examples": [
+        {
+          "input": 443,
+          "expected": "443"
+        }
+      ]
+    },
+    "exact_string": {
+      "input": "string",
+      "algorithm": "Normalize with Unicode NFC and trim leading and trailing Unicode whitespace. Preserve all internal characters and case. Non-string values block.",
+      "case_rule": "case-sensitive",
+      "examples": [
+        {
+          "input": " Café ",
+          "expected": "Café"
+        }
+      ]
+    },
+    "hash_lower": {
+      "input": "string",
+      "algorithm": "Apply exact_string and lowercase the result. Hash syntax and length validation remain field-specific validation concerns.",
+      "case_rule": "lowercase",
+      "examples": [
+        {
+          "input": " A0B1C2 ",
+          "expected": "a0b1c2"
+        }
+      ]
+    },
+    "individual_name": {
+      "input": "string",
+      "algorithm": "Normalize with Unicode NFC, trim, and collapse each run of Unicode whitespace to one ASCII space. Preserve letter case. Non-string and empty results block.",
+      "case_rule": "case-sensitive",
+      "examples": [
+        {
+          "input": "  José   García  ",
+          "expected": "José García"
+        }
+      ]
+    },
+    "ip_compressed": {
+      "input": "string",
+      "algorithm": "Parse as an IPv4 or IPv6 address with standards-based IP parsing and emit its compressed canonical form. Invalid values block.",
+      "case_rule": "protocol canonical form",
+      "examples": [
+        {
+          "input": "2001:0DB8:0:0:0:0:0:1",
+          "expected": "2001:db8::1"
+        }
+      ]
+    },
+    "phone_e164": {
+      "input": "string",
+      "algorithm": "Parse and validate with libphonenumber semantics, requiring an international country code unless a field-specific region is supplied by a future contract, then emit E.164. Ambiguous national numbers block.",
+      "case_rule": "not applicable",
+      "examples": [
+        {
+          "input": "+1 (415) 555-2671",
+          "expected": "+14155552671"
+        }
+      ]
+    },
+    "url_standard": {
+      "input": "string",
+      "algorithm": "Apply Unicode NFC and trim, parse an absolute URL under RFC 3986, lowercase the scheme, canonicalize the host with domain_idna and lowercase it, remove the default port for the scheme, and preserve userinfo, non-default port, path, query, and fragment character case. Parse failures block.",
+      "case_rule": "lowercase scheme and host; preserve path/query/fragment case",
+      "examples": [
+        {
+          "input": "HTTPS://BÜCHER.Example:443/Path?Q=Value",
+          "expected": "https://xn--bcher-kva.example/Path?Q=Value"
+        }
+      ]
+    },
+    "username": {
+      "input": "string",
+      "algorithm": "Apply Unicode NFC and trim, remove exactly one leading @ when present, and preserve the remaining characters and case. Empty results block.",
+      "case_rule": "case-sensitive after one leading @ is removed",
+      "examples": [
+        {
+          "input": " @Alice ",
+          "expected": "Alice"
+        }
+      ]
+    }
+  },
+  "types": [
+    {
+      "registry_key": "ASN",
+      "primary_field": "asn_str",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "asn_str",
+            "canonicalizer": "asn_as_form"
+          }
+        ]
+      },
+      "case_rule": "canonical AS prefix",
+      "notes": "Numeric ASN identity; malformed or out-of-range values block before matching.",
+      "examples": [
+        {
+          "input": {
+            "asn_str": "as0015169"
+          },
+          "expected": [
+            "AS15169"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Affiliation",
+      "primary_field": "organization",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "organization",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Role and dates do not participate in identity.",
+      "examples": [
+        {
+          "input": {
+            "organization": " ACME Labs "
+          },
+          "expected": [
+            "ACME Labs"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Alias",
+      "primary_field": "alias",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "alias",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Alias type and context are deliberately excluded.",
+      "examples": [
+        {
+          "input": {
+            "alias": " Café "
+          },
+          "expected": [
+            "Café"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "BankAccount",
+      "primary_field": "account_number",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "account_number",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "No separator removal is safe without a country- and bank-specific standard.",
+      "examples": [
+        {
+          "input": {
+            "account_number": " GB29 NWBK 6016 1331 9268 19 "
+          },
+          "expected": [
+            "GB29 NWBK 6016 1331 9268 19"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Breach",
+      "primary_field": "name",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "name",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Breach display title and domain are not identity fields.",
+      "examples": [
+        {
+          "input": {
+            "name": " ExampleBreach "
+          },
+          "expected": [
+            "ExampleBreach"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "CIDR",
+      "primary_field": "network",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "network",
+            "canonicalizer": "cidr_network"
+          }
+        ]
+      },
+      "case_rule": "protocol canonical form",
+      "notes": "Host bits are masked with strict=false before matching.",
+      "examples": [
+        {
+          "input": {
+            "network": "192.0.2.129/24"
+          },
+          "expected": [
+            "192.0.2.0/24"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Credential",
+      "primary_field": "username",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "username",
+            "canonicalizer": "username"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive after one leading @ is removed",
+      "notes": "Service is not included because the registered model marks only username as primary.",
+      "examples": [
+        {
+          "input": {
+            "username": "@Alice"
+          },
+          "expected": [
+            "Alice"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "CreditCard",
+      "primary_field": "card_number",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "card_number",
+            "canonicalizer": "credit_card_digits"
+          }
+        ]
+      },
+      "case_rule": "not applicable",
+      "notes": "Only ASCII digits participate after separator removal.",
+      "examples": [
+        {
+          "input": {
+            "card_number": "4111 1111-1111 1111"
+          },
+          "expected": [
+            "4111111111111111"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "CryptoNFT",
+      "primary_field": "token_id",
+      "selector_override": {
+        "kind": "composite_selector",
+        "rationale": "Add contract_address to the primary token_id to prevent cross-contract collisions."
+      },
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "contract_address",
+            "canonicalizer": "ethereum_address"
+          },
+          {
+            "path": "token_id",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "lowercase contract; case-sensitive token ID",
+      "notes": "Composite identity overrides the model's token_id-only primary marker to prevent cross-contract collisions.",
+      "examples": [
+        {
+          "input": {
+            "contract_address": "0xAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCd",
+            "token_id": " Token-01 "
+          },
+          "expected": [
+            "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd",
+            "Token-01"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "CryptoWallet",
+      "primary_field": "address",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "address",
+            "canonicalizer": "crypto_address"
+          }
+        ]
+      },
+      "case_rule": "lowercase Ethereum only; preserve other address case",
+      "notes": "Universal crypto-address lowercasing is forbidden.",
+      "examples": [
+        {
+          "input": {
+            "address": "0xAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCd"
+          },
+          "expected": [
+            "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "CryptoWalletTransaction",
+      "primary_field": "hash",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "hash",
+            "canonicalizer": "hash_lower"
+          }
+        ]
+      },
+      "case_rule": "lowercase",
+      "notes": "A missing transaction hash is a blocking unsupported identity form; source/target are not fallback identity.",
+      "examples": [
+        {
+          "input": {
+            "hash": " 0xABCDEF "
+          },
+          "expected": [
+            "0xabcdef"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "DNSRecord",
+      "primary_field": "value",
+      "selector_override": {
+        "kind": "composite_selector",
+        "rationale": "Add record_type to the primary value so type-aware canonicalization cannot collide across record kinds."
+      },
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "record_type",
+            "canonicalizer": "exact_string"
+          },
+          {
+            "path": "value",
+            "canonicalizer": "dns_value"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive record type; record-type-aware value",
+      "notes": "dns_value receives the canonical sibling record_type; unsupported structured values block.",
+      "examples": [
+        {
+          "input": {
+            "record_type": "AAAA",
+            "value": "2001:0DB8:0:0:0:0:0:1"
+          },
+          "expected": [
+            "AAAA",
+            "2001:db8::1"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Device",
+      "primary_field": "device_id",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "device_id",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Hardware identifiers are not reformatted without a field-specific syntax contract.",
+      "examples": [
+        {
+          "input": {
+            "device_id": " Device-ABC "
+          },
+          "expected": [
+            "Device-ABC"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Document",
+      "primary_field": "title",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "title",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Current primary field is title; hashes remain non-identity metadata for this type.",
+      "examples": [
+        {
+          "input": {
+            "title": " Incident Report "
+          },
+          "expected": [
+            "Incident Report"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Domain",
+      "primary_field": "domain",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "domain",
+            "canonicalizer": "domain_idna"
+          }
+        ]
+      },
+      "case_rule": "lowercase IDNA ASCII",
+      "notes": "One trailing DNS root dot is removed.",
+      "examples": [
+        {
+          "input": {
+            "domain": "BÜCHER.Example."
+          },
+          "expected": [
+            "xn--bcher-kva.example"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Email",
+      "primary_field": "email",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "email",
+            "canonicalizer": "email_address"
+          }
+        ]
+      },
+      "case_rule": "case-preserved local part; lowercase IDNA domain",
+      "notes": "The local part is never universally lowercased.",
+      "examples": [
+        {
+          "input": {
+            "email": "Alice@BÜCHER.Example"
+          },
+          "expected": [
+            "Alice@xn--bcher-kva.example"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "File",
+      "primary_field": "filename",
+      "selector_override": {
+        "kind": "ordered_fallback_selector",
+        "rationale": "Prefer the strongest present hash before falling back to the primary filename."
+      },
+      "selector": {
+        "mode": "first_present",
+        "fields": [
+          {
+            "path": "hash_sha256",
+            "canonicalizer": "hash_lower"
+          },
+          {
+            "path": "hash_sha1",
+            "canonicalizer": "hash_lower"
+          },
+          {
+            "path": "hash_md5",
+            "canonicalizer": "hash_lower"
+          },
+          {
+            "path": "filename",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "lowercase selected hash; case-sensitive filename fallback",
+      "notes": "Select the strongest present hash in SHA-256, SHA-1, MD5 order. Filename fallback risks collisions across unrelated files and every resulting match still requires human resolution.",
+      "examples": [
+        {
+          "input": {
+            "filename": "Evidence.BIN",
+            "hash_sha256": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "expected": {
+            "selected_field": "hash_sha256",
+            "values": [
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "registry_key": "Gravatar",
+      "primary_field": "hash",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "hash",
+            "canonicalizer": "hash_lower"
+          }
+        ]
+      },
+      "case_rule": "lowercase",
+      "notes": "Image URL does not participate in identity.",
+      "examples": [
+        {
+          "input": {
+            "hash": "ABCDEF0123456789"
+          },
+          "expected": [
+            "abcdef0123456789"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Individual",
+      "primary_field": "full_name",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "full_name",
+            "canonicalizer": "individual_name"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Missing full_name is blocking for identity matching; first_name and last_name are not silently substituted.",
+      "examples": [
+        {
+          "input": {
+            "full_name": "  José   García  "
+          },
+          "expected": [
+            "José García"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Ip",
+      "primary_field": "address",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "address",
+            "canonicalizer": "ip_compressed"
+          }
+        ]
+      },
+      "case_rule": "protocol canonical form",
+      "notes": "IPv4 and IPv6 are parsed, not compared as presentation strings.",
+      "examples": [
+        {
+          "input": {
+            "address": "2001:0DB8:0:0:0:0:0:1"
+          },
+          "expected": [
+            "2001:db8::1"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Leak",
+      "primary_field": "name",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "name",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Nested leak data does not participate in identity.",
+      "examples": [
+        {
+          "input": {
+            "name": " ExampleLeak "
+          },
+          "expected": [
+            "ExampleLeak"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Location",
+      "primary_field": "address",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "address",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Only the registered primary address field participates; city, country, and postal code remain properties.",
+      "examples": [
+        {
+          "input": {
+            "address": " 10 Downing Street "
+          },
+          "expected": [
+            "10 Downing Street"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Malware",
+      "primary_field": "name",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "name",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Family is deliberately excluded from the current identity selector.",
+      "examples": [
+        {
+          "input": {
+            "name": " Emotet "
+          },
+          "expected": [
+            "Emotet"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Message",
+      "primary_field": "message_id",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "message_id",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Message content and transport metadata do not participate.",
+      "examples": [
+        {
+          "input": {
+            "message_id": " MSG-001 "
+          },
+          "expected": [
+            "MSG-001"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Organization",
+      "primary_field": "name",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "name",
+            "canonicalizer": "exact_string",
+            "accepted_forms": [
+              "JSON string"
+            ],
+            "blocking_forms": [
+              "object",
+              "array",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "The model declares Any, but the import identity contract accepts only a scalar string. Arbitrary objects are never stringified.",
+      "examples": [
+        {
+          "input": {
+            "name": " ACME Corp "
+          },
+          "expected": [
+            "ACME Corp"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Phone",
+      "primary_field": "number",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "number",
+            "canonicalizer": "phone_e164"
+          }
+        ]
+      },
+      "case_rule": "not applicable",
+      "notes": "Ambiguous national numbers without an explicit region block.",
+      "examples": [
+        {
+          "input": {
+            "number": "+1 (415) 555-2671"
+          },
+          "expected": [
+            "+14155552671"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Phrase",
+      "primary_field": "text",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "text",
+            "canonicalizer": "exact_string",
+            "accepted_forms": [
+              "JSON string"
+            ],
+            "blocking_forms": [
+              "object",
+              "array",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "The model declares Any, but the import identity contract accepts only a scalar string and never stringifies arbitrary JSON.",
+      "examples": [
+        {
+          "input": {
+            "text": " Threat Actor Alpha "
+          },
+          "expected": [
+            "Threat Actor Alpha"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Port",
+      "primary_field": "number",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "number",
+            "canonicalizer": "exact_integer"
+          }
+        ]
+      },
+      "case_rule": "not applicable",
+      "notes": "Protocol is not part of the registered primary identity and is therefore not silently added.",
+      "examples": [
+        {
+          "input": {
+            "number": 443
+          },
+          "expected": [
+            "443"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "ReputationScore",
+      "primary_field": "entity_id",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "entity_id",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Entity type and provider remain non-identity properties under the current primary marker.",
+      "examples": [
+        {
+          "input": {
+            "entity_id": " Entity-001 "
+          },
+          "expected": [
+            "Entity-001"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "RiskProfile",
+      "primary_field": "entity_id",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "entity_id",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Assessment date and score do not participate in identity.",
+      "examples": [
+        {
+          "input": {
+            "entity_id": " Entity-001 "
+          },
+          "expected": [
+            "Entity-001"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "SSLCertificate",
+      "primary_field": "subject",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "subject",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Certificate subjects may not be plain domains, so domain canonicalization is not applied universally.",
+      "examples": [
+        {
+          "input": {
+            "subject": " CN=Example.COM "
+          },
+          "expected": [
+            "CN=Example.COM"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Script",
+      "primary_field": "script_id",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "script_id",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Hashes are not selected because the model's registered primary field is script_id.",
+      "examples": [
+        {
+          "input": {
+            "script_id": " Script-001 "
+          },
+          "expected": [
+            "Script-001"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Session",
+      "primary_field": "session_id",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "session_id",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "User, service, and timestamps do not participate.",
+      "examples": [
+        {
+          "input": {
+            "session_id": " Session-ABC "
+          },
+          "expected": [
+            "Session-ABC"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "SocialAccount",
+      "primary_field": "id",
+      "selector_override": {
+        "kind": "computed_primary_replacement",
+        "rationale": "Use platform plus username instead of trusting the optional computed primary id as identity input."
+      },
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "platform",
+            "canonicalizer": "exact_string",
+            "accepted_forms": [
+              "JSON string"
+            ]
+          },
+          {
+            "path": "username.value",
+            "canonicalizer": "username",
+            "accepted_forms": [
+              "username JSON string",
+              "username object with a string value member"
+            ],
+            "blocking_forms": [
+              "username object without a string value member",
+              "array",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        ]
+      },
+      "case_rule": "case-sensitive platform and username",
+      "notes": "Composite identity uses platform plus username. Computed id is not trusted as an identity input.",
+      "examples": [
+        {
+          "input": {
+            "platform": " Mastodon ",
+            "username": {
+              "value": "@Alice"
+            }
+          },
+          "expected": [
+            "Mastodon",
+            "Alice"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Technology",
+      "primary_field": "name",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "name",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Version is not part of the registered primary identity.",
+      "examples": [
+        {
+          "input": {
+            "name": " React "
+          },
+          "expected": [
+            "React"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Username",
+      "primary_field": "value",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "value",
+            "canonicalizer": "username"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive after one leading @ is removed",
+      "notes": "Platform remains a property; SocialAccount supplies the platform-aware composite identity.",
+      "examples": [
+        {
+          "input": {
+            "value": "@Alice"
+          },
+          "expected": [
+            "Alice"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Weapon",
+      "primary_field": "name",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "name",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Serial number is not silently substituted for the registered primary name.",
+      "examples": [
+        {
+          "input": {
+            "name": " Example Model "
+          },
+          "expected": [
+            "Example Model"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "WebTracker",
+      "primary_field": "tracker_id",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "tracker_id",
+            "canonicalizer": "exact_string"
+          }
+        ]
+      },
+      "case_rule": "case-sensitive",
+      "notes": "Tracker domain and script URL do not participate.",
+      "examples": [
+        {
+          "input": {
+            "tracker_id": " GTM-ABC123 "
+          },
+          "expected": [
+            "GTM-ABC123"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Website",
+      "primary_field": "url",
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "url",
+            "canonicalizer": "url_standard"
+          }
+        ]
+      },
+      "case_rule": "lowercase scheme/host; preserve path/query/fragment case",
+      "notes": "Default ports are removed; non-default ports remain.",
+      "examples": [
+        {
+          "input": {
+            "url": "HTTPS://BÜCHER.Example:443/Path?Q=Value"
+          },
+          "expected": [
+            "https://xn--bcher-kva.example/Path?Q=Value"
+          ]
+        }
+      ]
+    },
+    {
+      "registry_key": "Whois",
+      "primary_field": "domain",
+      "selector_override": {
+        "kind": "nested_refinement",
+        "rationale": "Refine the primary Domain object to its nested domain scalar for canonical matching."
+      },
+      "selector": {
+        "mode": "all",
+        "fields": [
+          {
+            "path": "domain.domain",
+            "canonicalizer": "domain_idna",
+            "accepted_forms": [
+              "domain JSON string",
+              "domain object with a string domain member"
+            ],
+            "blocking_forms": [
+              "domain object without a string domain member",
+              "array",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        ]
+      },
+      "case_rule": "lowercase IDNA ASCII domain",
+      "notes": "The nested Domain value is extracted explicitly; arbitrary objects are never stringified.",
+      "examples": [
+        {
+          "input": {
+            "domain": {
+              "domain": "BÜCHER.Example."
+            }
+          },
+          "expected": [
+            "xn--bcher-kva.example"
+          ]
+        }
+      ]
+    }
+  ]
+}

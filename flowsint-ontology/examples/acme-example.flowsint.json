@@ -1,0 +1,962 @@
+{
+  "format": "flowsint-graph",
+  "schema_version": 1,
+  "nodes": [
+    {
+      "id": "organization:Acme Widgets S.L.",
+      "type": "organization",
+      "label": "Acme Widgets S.L.",
+      "properties": {
+        "name": "Acme Widgets S.L."
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "actor",
+        "confidence": 0.96,
+        "confidence_band": "confirmed",
+        "sources": [
+          "S1",
+          "S2"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.96,
+            "band": "confirmed",
+            "evidence": [
+              {
+                "source": "S2",
+                "locator": "p.1, header",
+                "quote": "Acme Widgets S.L.",
+                "method": "stated"
+              },
+              {
+                "source": "S1",
+                "locator": "#about",
+                "quote": "Acme Widgets S.L. designs industrial widgets.",
+                "method": "stated"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "individual:Jane Doe",
+      "type": "individual",
+      "label": "Jane Doe",
+      "properties": {
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "full_name": "Jane Doe",
+        "job_title": "CFO"
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "actor",
+        "confidence": 0.9,
+        "confidence_band": "confirmed",
+        "sources": [
+          "S2"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "evidence": [
+              {
+                "source": "S2",
+                "locator": "p.2, officers",
+                "quote": "Jane Doe - Chief Financial Officer (since 2021-03-01)",
+                "method": "stated"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "email:Jane.Doe@acme-widgets.example",
+      "type": "email",
+      "label": "Jane.Doe@acme-widgets.example",
+      "properties": {
+        "email": "Jane.Doe@acme-widgets.example"
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "contact",
+        "confidence": 0.6,
+        "confidence_band": "possible",
+        "sources": [
+          "S1"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.6,
+            "band": "possible",
+            "evidence": [
+              {
+                "source": "S1",
+                "locator": "#team",
+                "quote": "Contact our CFO: Jane.Doe@ACME-WIDGETS.example",
+                "method": "stated"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "phone:+14155552671",
+      "type": "phone",
+      "label": "+14155552671",
+      "properties": {
+        "number": "+14155552671"
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "contact",
+        "confidence": 0.6,
+        "confidence_band": "possible",
+        "sources": [
+          "S1"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.6,
+            "band": "possible",
+            "evidence": [
+              {
+                "source": "S1",
+                "locator": "footer",
+                "quote": "Tel. +1 (415) 555-2671",
+                "method": "stated"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "location:1 Example Street",
+      "type": "location",
+      "label": "1 Example Street, Springfield, US",
+      "properties": {
+        "address": "1 Example Street",
+        "city": "Springfield",
+        "country": "US",
+        "zip": "00000"
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "contact",
+        "confidence": 0.9,
+        "confidence_band": "confirmed",
+        "sources": [
+          "S2"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "evidence": [
+              {
+                "source": "S2",
+                "locator": "p.1, registered office",
+                "quote": "Registered office: 1 Example Street, Springfield 00000",
+                "method": "stated"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "website:https://acme-widgets.example/about",
+      "type": "website",
+      "label": "https://acme-widgets.example/about",
+      "properties": {
+        "url": "https://acme-widgets.example/about",
+        "redirects": [],
+        "active": false,
+        "technologies": []
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "web",
+        "confidence": 0.9,
+        "confidence_band": "confirmed",
+        "sources": [
+          "S1"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "evidence": [
+              {
+                "source": "S1",
+                "locator": "page URL",
+                "method": "observed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "domain:acme-widgets.example",
+      "type": "domain",
+      "label": "acme-widgets.example",
+      "properties": {
+        "domain": "acme-widgets.example",
+        "root": true
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "infrastructure",
+        "confidence": 0.985,
+        "confidence_band": "confirmed",
+        "sources": [
+          "S1",
+          "S4"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.985,
+            "band": "confirmed",
+            "evidence": [
+              {
+                "source": "S4",
+                "locator": "whois query",
+                "method": "observed"
+              },
+              {
+                "source": "S1",
+                "locator": "#team",
+                "method": "derived",
+                "quote": "e-mail domain part"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "ip:192.0.2.10",
+      "type": "ip",
+      "label": "192.0.2.10",
+      "properties": {
+        "address": "192.0.2.10"
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "infrastructure",
+        "confidence": 0.9,
+        "confidence_band": "confirmed",
+        "sources": [
+          "S4"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "evidence": [
+              {
+                "source": "S4",
+                "locator": "dig A acme-widgets.example",
+                "quote": "acme-widgets.example. 300 IN A 192.0.2.10",
+                "method": "observed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "asn:AS64500",
+      "type": "asn",
+      "label": "AS64500 - EXAMPLE-NET",
+      "properties": {
+        "asn_str": "AS64500",
+        "number": 64500,
+        "name": "EXAMPLE-NET",
+        "cidrs": []
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "infrastructure",
+        "confidence": 0.9,
+        "confidence_band": "confirmed",
+        "sources": [
+          "S4"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "evidence": [
+              {
+                "source": "S4",
+                "locator": "whois 192.0.2.10",
+                "quote": "origin: AS64500",
+                "method": "observed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "username:jdoe_acme",
+      "type": "username",
+      "label": "jdoe_acme",
+      "properties": {
+        "value": "jdoe_acme",
+        "platform": "x"
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "persona",
+        "confidence": 0.6,
+        "confidence_band": "possible",
+        "sources": [
+          "S3"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.6,
+            "band": "possible",
+            "evidence": [
+              {
+                "source": "S3",
+                "locator": "message 14:02",
+                "quote": "Jane posts as @jdoe_acme on X",
+                "method": "stated",
+                "confidence": 0.6
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "socialaccount:x|jdoe_acme",
+      "type": "socialaccount",
+      "label": "jdoe_acme@x",
+      "properties": {
+        "id": "jdoe_acme@x",
+        "username": {
+          "nodeLabel": "jdoe_acme",
+          "value": "jdoe_acme"
+        },
+        "profile_url": "https://x.example/jdoe_acme",
+        "platform": "x"
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "persona",
+        "confidence": 0.6,
+        "confidence_band": "possible",
+        "sources": [
+          "S3"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.6,
+            "band": "possible",
+            "evidence": [
+              {
+                "source": "S3",
+                "locator": "message 14:02",
+                "method": "stated",
+                "confidence": 0.6
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "leak:ExampleCombo2024",
+      "type": "leak",
+      "label": "ExampleCombo2024",
+      "properties": {
+        "name": "ExampleCombo2024"
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "security",
+        "confidence": 0.5,
+        "confidence_band": "possible",
+        "sources": [
+          "S3"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.5,
+            "band": "possible",
+            "evidence": [
+              {
+                "source": "S3",
+                "locator": "message 14:05",
+                "quote": "her work address is in the ExampleCombo2024 list",
+                "method": "stated",
+                "confidence": 0.5
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "credential:Jane.Doe@acme-widgets.example",
+      "type": "credential",
+      "label": "Jane.Doe@acme-widgets.example@acme-widgets.example webmail",
+      "properties": {
+        "username": "Jane.Doe@acme-widgets.example",
+        "service": "acme-widgets.example webmail",
+        "password_hash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+        "hash_type": "sha256"
+      },
+      "metadata": {
+        "extraction_id": "acme-example-2026-11-04",
+        "ontology_domain": "security",
+        "confidence": 0.5,
+        "confidence_band": "possible",
+        "sources": [
+          "S3"
+        ]
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.5,
+            "band": "possible",
+            "evidence": [
+              {
+                "source": "S3",
+                "locator": "message 14:05",
+                "method": "stated",
+                "confidence": 0.5
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "source": "individual:Jane Doe",
+      "target": "organization:Acme Widgets S.L.",
+      "label": "WORKS_FOR",
+      "properties": {
+        "role": "CFO",
+        "start_date": "2021-03-01",
+        "confidence_level": 0.9
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S2",
+                "locator": "p.2, officers",
+                "quote": "Jane Doe - Chief Financial Officer (since 2021-03-01)",
+                "method": "stated"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "organization:Acme Widgets S.L.",
+      "target": "individual:Jane Doe",
+      "label": "HAS_LEADER",
+      "properties": {
+        "confidence_level": 0.9
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S2",
+                "locator": "p.2, officers",
+                "method": "stated"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "individual:Jane Doe",
+      "target": "email:Jane.Doe@acme-widgets.example",
+      "label": "HAS_EMAIL",
+      "properties": {
+        "confidence_level": 0.6
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.6,
+            "band": "possible",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S1",
+                "locator": "#team",
+                "method": "stated"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "organization:Acme Widgets S.L.",
+      "target": "phone:+14155552671",
+      "label": "HAS_PHONE",
+      "properties": {
+        "confidence_level": 0.6
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.6,
+            "band": "possible",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S1",
+                "locator": "footer",
+                "method": "stated"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "organization:Acme Widgets S.L.",
+      "target": "location:1 Example Street",
+      "label": "HAS_ADDRESS",
+      "properties": {
+        "confidence_level": 0.9
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S2",
+                "locator": "p.1, registered office",
+                "method": "stated"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "organization:Acme Widgets S.L.",
+      "target": "website:https://acme-widgets.example/about",
+      "label": "HAS_WEBSITE",
+      "properties": {
+        "confidence_level": 0.9
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S1",
+                "method": "observed",
+                "locator": "page URL"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "website:https://acme-widgets.example/about",
+      "target": "domain:acme-widgets.example",
+      "label": "BELONGS_TO_DOMAIN",
+      "properties": {
+        "confidence_level": 0.85
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.85,
+            "band": "probable",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S1",
+                "method": "derived",
+                "locator": "URL host"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "email:Jane.Doe@acme-widgets.example",
+      "target": "domain:acme-widgets.example",
+      "label": "HAS_DOMAIN",
+      "properties": {
+        "confidence_level": 0.85
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.85,
+            "band": "probable",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S1",
+                "method": "derived",
+                "locator": "#team"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "individual:Jane Doe",
+      "target": "domain:acme-widgets.example",
+      "label": "IS_REGISTRANT_CONTACT",
+      "properties": {
+        "date": "2026-11-04",
+        "confidence_level": 0.9
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S4",
+                "locator": "whois: Registrant Name",
+                "quote": "Registrant Name: Jane Doe",
+                "method": "observed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "domain:acme-widgets.example",
+      "target": "ip:192.0.2.10",
+      "label": "RESOLVES_TO",
+      "properties": {
+        "date": "2026-11-04",
+        "confidence_level": 0.9
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S4",
+                "locator": "dig A",
+                "method": "observed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "ip:192.0.2.10",
+      "target": "asn:AS64500",
+      "label": "BELONGS_TO",
+      "properties": {
+        "confidence_level": 0.9
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.9,
+            "band": "confirmed",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S4",
+                "locator": "whois 192.0.2.10",
+                "method": "observed"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "username:jdoe_acme",
+      "target": "socialaccount:x|jdoe_acme",
+      "label": "HAS_SOCIAL_ACCOUNT",
+      "properties": {
+        "confidence_level": 0.6
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.6,
+            "band": "possible",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S3",
+                "locator": "message 14:02",
+                "method": "stated",
+                "confidence": 0.6
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "individual:Jane Doe",
+      "target": "username:jdoe_acme",
+      "label": "HAS_USERNAME",
+      "properties": {
+        "confidence_level": 0.6
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.6,
+            "band": "possible",
+            "status": "native",
+            "evidence": [
+              {
+                "source": "S3",
+                "locator": "message 14:02",
+                "method": "stated",
+                "confidence": 0.6
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "email:Jane.Doe@acme-widgets.example",
+      "target": "leak:ExampleCombo2024",
+      "label": "FOUND_IN_LEAK",
+      "properties": {
+        "confidence_level": 0.5
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.5,
+            "band": "possible",
+            "status": "extension",
+            "evidence": [
+              {
+                "source": "S3",
+                "locator": "message 14:05",
+                "method": "stated",
+                "confidence": 0.5
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "email:Jane.Doe@acme-widgets.example",
+      "target": "credential:Jane.Doe@acme-widgets.example",
+      "label": "HAS_CREDENTIAL",
+      "properties": {
+        "confidence_level": 0.5
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.5,
+            "band": "possible",
+            "status": "extension",
+            "evidence": [
+              {
+                "source": "S3",
+                "locator": "message 14:05",
+                "method": "stated",
+                "confidence": 0.5
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "source": "credential:Jane.Doe@acme-widgets.example",
+      "target": "leak:ExampleCombo2024",
+      "label": "FOUND_IN_LEAK",
+      "properties": {
+        "confidence_level": 0.5
+      },
+      "extensions": {
+        "flowsint-ontology.evidence": {
+          "version": 1,
+          "data": {
+            "confidence": 0.5,
+            "band": "possible",
+            "status": "extension",
+            "evidence": [
+              {
+                "source": "S3",
+                "locator": "message 14:05",
+                "method": "stated",
+                "confidence": 0.5
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "extensions": {
+    "flowsint-ontology.extraction": {
+      "version": 1,
+      "data": {
+        "id": "acme-example-2026-11-04",
+        "title": "Acme Widgets - ownership and infrastructure (example)",
+        "purpose": "Map the people, accounts, and infrastructure behind acme-widgets.example for a due-diligence check.",
+        "summary": "Jane Doe is CFO of Acme Widgets S.L. and is the registrant of acme-widgets.example. The domain resolves to 192.0.2.10 in AS64500. The handle jdoe_acme on X probably belongs to her (one analyst statement, consistent naming). Her work e-mail appears in a 2024 combolist with a hashed password.",
+        "created_at": "2026-11-04T16:30:20+00:00",
+        "agent": "example-agent",
+        "language": "en",
+        "input_summary": "Company web page, a registry PDF, an analyst chat, and a DNS/WHOIS tool finding. All names and values are fictional; domains and IPs use documentation ranges.",
+        "ontology_version": "1.0.0",
+        "flowsint_commit": "39a977958e1650b7a6025938a0e34baaef4ba4cf",
+        "sources": [
+          {
+            "id": "S1",
+            "kind": "web",
+            "title": "Acme Widgets - About us",
+            "uri": "https://acme-widgets.example/about",
+            "retrieved_at": "2026-11-04",
+            "reliability": "C"
+          },
+          {
+            "id": "S2",
+            "kind": "public_record",
+            "title": "Commercial registry extract, Acme Widgets S.L.",
+            "uri": "file:registry-extract.pdf",
+            "published_at": "2026-06-30",
+            "reliability": "A"
+          },
+          {
+            "id": "S3",
+            "kind": "conversation",
+            "title": "Analyst chat, 2026-11-04",
+            "reliability": "C",
+            "notes": "Second-hand statement by a colleague."
+          },
+          {
+            "id": "S4",
+            "kind": "tool_output",
+            "title": "dig + whois run on acme-widgets.example",
+            "retrieved_at": "2026-11-04T10:12:00Z",
+            "reliability": "A"
+          }
+        ],
+        "gaps": [
+          "No independent confirmation that @jdoe_acme belongs to Jane Doe (single second-hand chat statement).",
+          "WHOIS registrant e-mail is redacted; the registrant match rests on the name only."
+        ],
+        "questions": [
+          "Is ExampleCombo2024 a repost of an older catalogued breach?"
+        ],
+        "excluded": [
+          {
+            "what": "Plaintext password mentioned in the chat",
+            "reason": "secret: never recorded; only the hash given in the list is kept"
+          }
+        ],
+        "validated_by": "flowsint-pydantic",
+        "canonicalized_by": "flowsint"
+      }
+    }
+  }
+}
