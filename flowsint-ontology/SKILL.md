@@ -1,6 +1,7 @@
 ---
 name: flowsint-ontology
 description: Extract entities (nodes) and their relationships (edges) from any input - open sources (OSINT), documents, conversations, findings, tool output, datasets - and model them with the Flowsint taxonomy and ontology (40 entity types, 81 relationship labels, identity rules, evidence and confidence). Always delivers three documents per extraction - a Flowsint-importable JSON graph, a typed GraphQL mutation document, and a Markdown report. Use when the user asks to collect, map, extract, or structure entities, actors, selectors, infrastructure, or "nodes and edges" from material, to build or extend a Flowsint graph or sketch, to turn findings into a knowledge graph, or to check which Flowsint type or relationship label fits something.
+compatibility: "Requires Python 3.10+. Optional: a Flowsint checkout ($FLOWSINT_HOME or ~/Tools/flowsint) for full validation, and uv for the contract checks."
 ---
 
 # Flowsint ontology: entity and relationship extraction

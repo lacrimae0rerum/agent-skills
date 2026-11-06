@@ -1,0 +1,10 @@
+{
+  "name": "prompting",
+  "private": true,
+  "type": "module",
+  "description": "Template tools of the prompting skill (RenderTemplate.ts, ValidateTemplate.ts)",
+  "dependencies": {
+    "handlebars": "^4.7.8",
+    "yaml": "^2.8.2"
+  }
+}

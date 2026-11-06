@@ -1,0 +1,9 @@
+{
+  "name": "x-twitter",
+  "private": true,
+  "type": "module",
+  "description": "X (Twitter) API v2 tools for the x-twitter agent skill",
+  "dependencies": {
+    "yaml": "^2.8.2"
+  }
+}
