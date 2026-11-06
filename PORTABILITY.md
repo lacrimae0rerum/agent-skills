@@ -48,8 +48,8 @@ mechanical rules; a skill is done when the linter passes and the skill still doe
   and in a `## Setup` section.
 - No absolute home paths, no `~/.claude`, no imports from another skill's folder.
 - Optional integration with another skill (running its tools, reading its suites) finds it at
-  run time through `<SKILL>_SKILL_DIR` (e.g. `ASSAY_SKILL_DIR`), then the sibling folder
-  `../<skill>`, and fails with a clear message when it is absent. The skill still works
+  run time through `<SKILL>_SKILL_DIR` (e.g. `ASSAY_SKILL_DIR`), then `$AGENT_SKILLS_DIR/<skill>`,
+  then the sibling folder `../<skill>`, and fails with a clear message when it is absent. The skill still works
   without it. Shared download caches may live in the owning skill's data folder.
 
 ## 4. Personal-assistant infrastructure

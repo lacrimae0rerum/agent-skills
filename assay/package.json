@@ -1,0 +1,14 @@
+{
+  "name": "assay",
+  "version": "2.9.3",
+  "type": "module",
+  "private": true,
+  "description": "Assertion-first AI eval framework: deterministic asserts, calibrated judges, pass^k with statistics, paired comparison",
+  "scripts": {
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.0.0"
+  }
+}

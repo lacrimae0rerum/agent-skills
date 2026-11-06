@@ -34,23 +34,29 @@ what it needs.
 | [art](art/SKILL.md) | Static visual content in 20+ formats (diagrams, infographics, comics, icons, wallpaper) via Nano Banana Pro by default, Nano Banana, and Flux, plus technical... |
 | [art-direction](art-direction/SKILL.md) | Directs visual quality across images, films, slides, documents and site captures through a direction council, two vendors' vision judgments against anchored ... |
 | [arxiv](arxiv/SKILL.md) | Search and retrieve arXiv academic papers by topic, category, or paper ID — with AlphaXiv-enriched AI-generated overviews |
+| [assay](assay/SKILL.md) | Assertion-first eval framework: code asserts, calibrated model judges, pass^k and pass@k with SEM and 95% CI, paired A/B comparison, flipped-order tournament... |
+| [audio-editor](audio-editor/SKILL.md) | Cleans spoken audio via Whisper transcription, LLM segment classification, and ffmpeg cuts, plus breath taming, loudness locking and noise-gate artifact repair |
 | [be-creative](be-creative/SKILL.md) | Single-pass divergent ideation via Verbalized Sampling: surfaces the strongest of several diverse candidates, or expands a seed corpus into an eval dataset |
 | [bias-check](bias-check/SKILL.md) | Three-layer bias analysis of any URL, file, or text: fetches the content and cited studies, then audits data bias, source conflicts, and journalism distortions |
 | [bitter-lesson-engineering](bitter-lesson-engineering/SKILL.md) | Audits any AI instruction set for over-prompting by asking whether a smarter model would make each rule unnecessary, then classifies every rule from CUT to KEEP |
 | [brand](brand/SKILL.md) | The user brand integrity system: sweeps and refreshes brand/focus messaging across every public surface (GitHub profile README, blog, company site, marketing... |
 | [bright-data](bright-data/SKILL.md) | 4-tier page fetching that moves from plain curl to curl with declared headers to a real browser (the agent's browser tools) to Bright Data's managed fetch pr... |
 | [broadcast](broadcast/SKILL.md) | Multi-platform social syndication CLI: post text and media to X, LinkedIn, Bluesky and Instagram from one command, with per-platform limits, a --dry-run prev... |
+| [calibrate](calibrate/SKILL.md) | Calibrates any eval against the user's own taste: takes a task in plain words, finds the eval suites and targets that cover it and offers them as options, th... |
 | [cloudflare](cloudflare/SKILL.md) | Deploys and manages Cloudflare Workers, Pages, KV, R2, D1, DNS, and Queues with the cf CLI, converts Wrangler projects to cf, and authors MCP servers as Work... |
 | [council](council/SKILL.md) | Multi-agent collaborative debate producing visible round-by-round transcripts with real intellectual friction — members are topic-briefed personas (parallel ... |
+| [create-cli](create-cli/SKILL.md) | Generates production-ready TypeScript CLIs on Bun via a 3-tier template system (manual arg parsing, Commander.js, oclif), each shipping full implementation, ... |
 | [crime-stats](crime-stats/SKILL.md) | Pulls US city crime statistics from public sources (FBI crime data, city police data portals, state open-data portals, rate aggregators): rates per 100K, yea... |
 | [data-refresh](data-refresh/SKILL.md) | Keeps your data-backed public sites and their source datasets current from a registry you configure: freshness check, source repull, rebuild, gated deploy, l... |
 | [detect-ai](detect-ai/SKILL.md) | Detects AI-generated writing: heuristic audit against known AI patterns, statistical signals (entropy, burstiness), an empirical Pangram score, and a keyless... |
+| [development](development/SKILL.md) | Builds, tests, modifies and checks up on software against a plain spec (acceptance criteria plus a Test Strategy table) in the user's repo, from a one-file c... |
 | [excalidraw](excalidraw/SKILL.md) | Sketches ideas as hand-drawn Excalidraw diagrams on a live local canvas via the pinned mcp-excalidraw-server CLI, with mermaid conversion, file I/O, and shar... |
 | [explain](explain/SKILL.md) | Keeps the user current on the fundamentals of what is going on in the user's projects, work and technical infrastructure: interactive lessons (optionally spo... |
 | [extract-wisdom](extract-wisdom/SKILL.md) | Content-adaptive wisdom extraction (sections built around what the content holds, five depth levels, mandatory contrarian takes) and extract alpha (the N hig... |
 | [fabric](fabric/SKILL.md) | Runs Fabric prompt patterns natively from Patterns/ (240+), plus our ideal-state ports of the most-used ones: each port is an intent with its own code checke... |
 | [first-principles](first-principles/SKILL.md) | Physics-based reasoning framework (Musk methodology) that deconstructs a problem to irreducible fundamental truths, classifies every element as hard constrai... |
 | [flowsint-ontology](flowsint-ontology/SKILL.md) | Extract entities (nodes) and their relationships (edges) from any input - open sources (OSINT), documents, conversations, findings, tool output, datasets - a... |
+| [hardening](hardening/SKILL.md) | Hardens the tests of the user's codebase with property-based testing in fast-check: turns the universal claim behind example tests into a property, runs it o... |
 | [herdr](herdr/SKILL.md) | Operates herdr, the third-party terminal workspace manager for coding agents, through its CLI and socket API; explains and edits the local herdr setup (confi... |
 | [html](html/SKILL.md) | Renders the current session output as a self-contained, designed HTML artifact (one self-contained .html file) via a deterministic renderer that owns all lay... |
 | [hyperframes](hyperframes/SKILL.md) | One-off semantic animations and animated explainers authored as HTML + GSAP on HyperFrames, directed by a meaning layer (MeaningMap then Direction, reviewed ... |
@@ -58,6 +64,7 @@ what it needs.
 | [novelty](novelty/SKILL.md) | Evolutionary explanation-discovery engine for hard-to-vary causal theories of unknown phenomena |
 | [open-source-management](open-source-management/SKILL.md) | Triages open issues, pull requests and GitHub Discussions across the user's own open-source repos (the list in Config.md) via the gh CLI, ranks what needs at... |
 | [pareto](pareto/SKILL.md) | Maps any topic's zeitgeist and frontier — sweeps YouTube, GitHub, the web and the `research` skill, ranks everything down to the vital few by relevance, reac... |
+| [presentation](presentation/SKILL.md) | Makes talks, slide decks and sales pitches: a read-aloud lecture in Keynote or HTML, a cue-card HTML deck, or a pitch from product docs (value story, talking... |
 | [prompting](prompting/SKILL.md) | Meta-prompting standard library for generating, optimizing, and composing prompts programmatically via Standards, Handlebars Templates, and Tools; output is ... |
 | [red-team](red-team/SKILL.md) | Adversarial analysis deploying parallel expert agents to stress-test ideas, strategies, and plans — attacks atomic claims, then steelmans and counter-argues,... |
 | [research](research/SKILL.md) | Multi-vendor web research with verified URLs and confidence-tagged output at four depths (Quick, Standard, Extensive, Deep Investigation) |
@@ -69,11 +76,13 @@ what it needs.
 | [speaking](speaking/SKILL.md) | Finds and tracks paid speaking opportunities that fit your own topics by scraping conference CFPs and speaker pages, ranks them by fit and urgency with deadl... |
 | [spotify](spotify/SKILL.md) | Acts on the user's Spotify account via a deterministic CLI (Tools/Spotify.ts): search, playlists, now-playing, library, and playback across devices |
 | [story-explanation](story-explanation/SKILL.md) | Generates narrative explanations in the user's first-person voice, from 3-part narrative to CSE numbered points, each a standalone social-ready thought |
+| [story-film](story-film/SKILL.md) | Turns a story markdown file into a narrated animated film, a reading format where the listener is read to and sees the story as it is told: beats from paragr... |
 | [stripe](stripe/SKILL.md) | Runs Stripe billing operations via the Stripe SDK and, when configured, an admin dashboard's cached endpoints: products, prices, subscriptions, MRR and reven... |
 | [superior](superior/SKILL.md) | Thinking skill for big problems that swaps the solver: reads the scope it was given, infers the scope the asker most likely means, maps that, then asks how a... |
 | [systems-thinking](systems-thinking/SKILL.md) | Structural analysis of complex systems — Iceberg model, Causal Loop feedback diagrams, archetype matching, Meadows leverage points, and concept maps — ground... |
 | [threat-model](threat-model/SKILL.md) | Defensive threat modeling of your own estate from a user-provided inventory: sensitive-data map, trust boundaries and prompt-injection surfaces, compromise s... |
 | [us-stats](us-stats/SKILL.md) | Query the configured long-run US almanac (90+ annual series on economy, debt, cost of living, health, crime, family, trust, energy, many back to the 1940s: t... |
+| [video-essay](video-essay/SKILL.md) | Turns content plus a stance into a video essay narrated by the agent, any post, idea or feature plus a length into a short agent-narrated explainer video, or... |
 | [visualize](visualize/SKILL.md) | Visualizes anything at all and never declines — a codebase, a physical setup, a timeline, a process, finances, a comparison, a concept, a URL, a dataset — as... |
 | [wastewater-ca](wastewater-ca/SKILL.md) | Pull California population-level pathogen surveillance from CDC NWSS and CDPH/CHHS Open Data — SARS-CoV-2, Influenza A/B, RSV, Mpox, Norovirus, H5, Candida a... |
 | [webdesign](webdesign/SKILL.md) | Designs and integrates web interfaces via DirectDesign (inline, Anthropic frontend-design philosophy, the default) or NativeDesign (/design artboards plus /d... |
