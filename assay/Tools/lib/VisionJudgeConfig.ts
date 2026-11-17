@@ -5,7 +5,7 @@
  *
  * Config file: $AGENT_SKILLS_HOME/assay/vision-judge.json (ASSAY_VISION_JUDGE_CONFIG overrides).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/lib/VisionJudgeConfig.ts.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';

@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/probe.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * Pre-render runtime probe: open the composition in the pinned headless Chrome (sandboxed,
  * DNS mapped to nowhere) over the DevTools protocol and read `window.__timelines`.

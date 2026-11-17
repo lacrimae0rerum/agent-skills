@@ -1,6 +1,6 @@
 /**
  * SafeFetch — the one fetch for a URL that someone else chose.
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  *   safeFetch(input, init?, opts?)   fetch, with the destination checked and the connection pinned
  *   createSafeFetch(opts)            the same thing in fetch's own shape, for code that injects a fetcher

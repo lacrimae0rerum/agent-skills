@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/constants.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * HyperFrames seam — pinned versions and the fixed locations everything else reads.
  *

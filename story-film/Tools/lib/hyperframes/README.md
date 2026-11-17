@@ -187,4 +187,4 @@ Since 2026-10-16 the default is `autoWorkers` (§ Workers above): short renders 
 - `fonts.ts`: font embedding, the gate, `roleFaces` and `bundledFaces`.
 - `boundary.ts`: `confinedPath` and `atomicWrite`, used to stage GSAP into a project safely.
 
-The upstream test suite and fixtures are not included. Verify a copy by rendering a small composition (`Scaffold.ts`, then `check` and `snapshot`) on the target machine.
+No test suite or fixtures are included. Verify a copy by rendering a small composition (`Scaffold.ts`, then `check` and `snapshot`) on the target machine.

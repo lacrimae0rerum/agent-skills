@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/probe.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * headless: drive one page in a local headless Chrome or Chromium over the DevTools protocol,
  * with no npm dependency. Each session starts a fresh browser with a throwaway profile, so it

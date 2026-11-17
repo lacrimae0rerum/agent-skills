@@ -9,7 +9,7 @@
  * recency, outlier (reach vs the author's baseline; star velocity for repos).
  * Every item also carries an era (past | current) and a frontier_candidate flag.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  * @version 1.0.0
  */
 

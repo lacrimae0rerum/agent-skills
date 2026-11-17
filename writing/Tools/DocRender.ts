@@ -2,9 +2,8 @@
 /**
  * DocRender.ts — render a Markdown draft to a themed, readable HTML page.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt)
- * The upstream brand bar, logo and shared theme are replaced by the skill's own theme,
- * Templates/DocTheme.css, so every preview renders through one theme source.
+ * Adapted from MIT-licensed code (see LICENSE.txt). Every preview renders through one theme source,
+ * the skill's own Templates/DocTheme.css.
  *
  * Usage:
  *   bun DocRender.ts <markdown-path> [--title "…"] [--label "…"] [--output <path>] [--stdout]

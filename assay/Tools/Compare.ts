@@ -20,7 +20,7 @@
  * Billed through the runner's inference provider. Duration per arm is reported; token
  * counts are not available from the inference envelope.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';

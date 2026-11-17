@@ -5,7 +5,7 @@
  * Cohen's kappa ≥ 0.40 over the user's labels, with at least MIN_PER_RUNG labels per side.
  * Override per install with ASSAY_FLOOR_AGREEMENT and ASSAY_FLOOR_KAPPA (both skills read them).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/lib/Calibration.ts.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import { getEnv } from '../_portable/paths.ts';
 

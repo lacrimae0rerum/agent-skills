@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 /**
  * SignalCheck — deterministic checks for the security-market-data skill.
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  *   setup  Is `signal-mcp` configured for Claude Code or Codex, or does the REST
  *          fallback key exist? Configuration only: OAuth state is not visible here.

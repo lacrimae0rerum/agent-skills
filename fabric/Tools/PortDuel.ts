@@ -12,9 +12,8 @@
  *       [--generator-vendor anthropic|openai|any] [--judge-vendor anthropic|openai|any] [--out <dir>] [--json]
  *   exit 0 port wins · 1 port does not win · 2 generator or judge unavailable
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt). The upstream judged each
- * pair with the assay skill's Tournament; this copy carries its own two-order pairwise
- * judge so it runs without that skill.
+ * Adapted from MIT-licensed code (see LICENSE.txt). It carries its own two-order pairwise
+ * judge, so it runs without the assay skill's Tournament.
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -26,7 +25,7 @@ const SKILL = skillRoot(import.meta.url);
 const QUESTION =
   "Which output better delivers what the request asks for? Judge fidelity to the deliverable the request names (the right kind of output, nothing missing that the request implies), accuracy to the input, specificity to this input rather than generic filler, and usefulness to an expert reader. Length and formatting count only as far as they serve the reader.";
 
-// Pairwise judge prompt, adapted from the upstream MIT-licensed judge prompts (see LICENSE.txt).
+// Pairwise judge prompt, adapted from MIT-licensed judge prompts (see LICENSE.txt).
 const PAIRWISE_SYSTEM = `You are comparing two candidate OUTPUTS, A (first) and B (second), on ONE question.
 Before choosing, quote the deciding phrases from EACH candidate verbatim (one or two per side). Judge only the question asked; ignore length and polish unless the question is about them. If the candidates are equally good on the question, say tie: a tie is a real answer, not a failure. Output exactly one JSON object and nothing after it: {"quotes": {"A": ["<verbatim>"], "B": ["<verbatim>"]}, "winner": "A"|"B"|"tie", "reason": "<one sentence>"}`;
 

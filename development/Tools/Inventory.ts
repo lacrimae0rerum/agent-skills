@@ -12,7 +12,7 @@
  * files). Reads JavaScript/TypeScript, SQL and package.json only. Read-only;
  * never writes to the repo or the spec.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * Exit codes: 0 clean, 1 sync found gaps, 2 bad input.
  */

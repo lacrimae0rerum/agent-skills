@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): skills/Assay/Tools/{OpenAIVision,AnthropicVision,Judge}.ts, ASSAY/JudgeCall.ts and TOOLS/Inference.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * vision: the critique's one image-judge transport. One call per (vendor, image, prompt); the caller owns retries,
  * bounds and verdict parsing.

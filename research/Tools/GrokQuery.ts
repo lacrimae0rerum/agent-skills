@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 /**
  * GrokQuery.ts - xAI Grok chat-completions client
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * The research skill's Grok slot: OpenAI-compatible chat completions against
  * api.x.ai, for what is being said on X. Public material only in the query, and

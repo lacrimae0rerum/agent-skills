@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 /**
  * Digest — run state and shape checks for the security-updates Update intent.
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  *   bun Tools/Digest.ts filter  [--state <path>] < candidates.json   → JSON {first_run, since, items}
  *   bun Tools/Digest.ts record  [--state <path>] < shown.json        → writes the state file

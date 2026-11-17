@@ -2,7 +2,7 @@
 
 **Contents:** Ideal State · Anti-criteria · Tool contract · Inputs · Output format · Examples
 
-Current data fetched from all three sources (FRED, EIA, Treasury FiscalData; the count and category list are in SKILL.md's purpose paragraph) and written to the local US-Common-Metrics dataset. GetCurrentState's report does its own fetch; this dataset is where metrics outside that report are quoted from. Ported from the retired USMetrics skill on 2026-10-10 with nothing dropped.
+Current data fetched from all three sources (FRED, EIA, Treasury FiscalData; the count and category list are in SKILL.md's purpose paragraph) and written to the local US-Common-Metrics dataset. GetCurrentState's report does its own fetch; this dataset is where metrics outside that report are quoted from.
 
 ## Ideal State
 

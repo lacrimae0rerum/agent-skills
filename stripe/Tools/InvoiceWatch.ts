@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 // Tracks invoices the user sends until they are paid, so the user hears when money lands and is
-// reminded when it has not. Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+// reminded when it has not. Adapted from MIT-licensed code (see LICENSE.txt).
 //
 //   bun Tools/InvoiceWatch.ts add <in_…> --follow-up YYYY-MM-DD [--note "<text>"] [--account <alias>]
 //   bun Tools/InvoiceWatch.ts list [--json]

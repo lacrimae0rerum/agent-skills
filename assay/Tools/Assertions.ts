@@ -50,7 +50,7 @@ export interface Assertion {
 }
 
 export interface AssertResult {
-  /** Upstream judgment-layer diagnostics. This port never writes them; the field stays optional so older run.json files still parse. */
+  /** Judgment-layer diagnostics. This tool never writes them; the field stays optional so older run.json files still parse. */
   jev?: {
     resolved: boolean;
     escalated: boolean;

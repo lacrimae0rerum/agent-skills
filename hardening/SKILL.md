@@ -8,7 +8,7 @@ license: MIT (see LICENSE.txt)
 
 Hardening sharpens tests that already exist in the user's codebase without adding new functionality: it turns the universal claim behind a set of example tests into a fast-check property, runs it across generated inputs, and shrinks any failure to the minimal counterexample.
 
-One intent ships. Mutation testing, complexity scoring, duplication scanning, and acceptance-test mutation were once listed upstream as planned; none is built, and this file does not advertise them (a routing table that promises unbuilt intents is the "confidently documented, never existed" class).
+One intent ships. Mutation testing, complexity scoring, duplication scanning, and acceptance-test mutation were once listed as planned; none is built, and this file does not advertise them (a routing table that promises unbuilt intents is the "confidently documented, never existed" class).
 
 ## Ideal State
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Adapted from the upstream MIT-licensed tool (see ../LICENSE.txt).
+// Adapted from MIT-licensed code (see ../LICENSE.txt).
 
 /**
  * PangramScore.ts — score text for AI-detectability via the Pangram API.

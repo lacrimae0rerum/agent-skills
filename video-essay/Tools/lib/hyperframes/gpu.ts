@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/gpu.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * GPU canary: does hardware compositing in the pinned headless Chrome actually put pixels on a page?
  *

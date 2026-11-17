@@ -1,7 +1,7 @@
 /**
  * send-check: the local confirmation step that runs before anything leaves this machine under the user's account.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt). The upstream send gate's proof receipts, output
+ * Adapted from MIT-licensed code (see LICENSE.txt). Proof receipts, output
  * ledgers, override tokens and event logging are dropped. What stays:
  *   1. a refusal to send text that carries an obvious secret, a private key, or the user's own home-directory path
  *      (printed as `SEND BLOCKED (<channel>) ... Nothing was sent.`), and

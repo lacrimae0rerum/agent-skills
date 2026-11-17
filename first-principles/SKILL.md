@@ -83,7 +83,7 @@ User preferences, when present, live in `$AGENT_SKILLS_HOME/first-principles/PRE
 
 ## Gotchas
 
-- **The Core Distinction, The Load-Bearing Rules and Challenge's tabular worked example (`Intents/Challenge.md` § Examples) are measured keep-content; never cut them as choreography.** A 2026-10-10 quality pass cut all three and lost the A/B against the old text; restoring them won it back. (Upstream A/B result, not reproducible here.)
+- **The Core Distinction, The Load-Bearing Rules and Challenge's tabular worked example (`Intents/Challenge.md` § Examples) are measured keep-content; never cut them as choreography.** A 2026-10-10 quality pass cut all three and lost the A/B against the old text; restoring them won it back. (A/B result, not reproducible here.)
 
 ## Examples
 

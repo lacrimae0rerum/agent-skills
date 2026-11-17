@@ -1,12 +1,12 @@
 /**
  * Judge — the model-graded assertion layer (llm-rubric, llm-assert, text pairwise).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt)
- * Only the model-judge path is kept; the upstream judgment-engine first pass, calibration
- * records and vendor routing are dropped.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
+ * Only the model-judge path exists: no judgment-engine first pass, calibration
+ * records or vendor routing.
  * Calls go through ../_portable/inference.ts, so any configured provider works.
  *
- * Judge discipline kept from upstream: the judge quotes the deciding evidence first,
+ * Judge discipline: the judge quotes the deciding evidence first,
  * chooses the lower level when torn, grades against a REFERENCE when one is given, and
  * emits a machine-readable verdict; an "UNKNOWN:" verdict is scored as a miss. Run the
  * judge at a level distinct from whatever generated the text (default 'high').

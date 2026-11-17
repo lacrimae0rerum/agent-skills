@@ -2,7 +2,7 @@
 /**
  * MarkdownPreCheck — the Cloudflare `Accept: text/markdown` pre-check and the
  * tier label for FourTierScrape, as code so both are deterministic.
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  *   bun Tools/MarkdownPreCheck.ts check <url> [--json]          (from the skill folder)
  *   bun Tools/MarkdownPreCheck.ts label <url> <precheck|1|2|3|4> [--why "<reason>"]

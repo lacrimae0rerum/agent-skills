@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/audio.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * Audio features precomputed in TypeScript, so compositions never decode audio in the browser.
  *

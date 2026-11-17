@@ -60,7 +60,7 @@ Sanctioned exception: transparent inline is the default for every blog header. T
 For non-blog images that only need transparency, or to remove backgrounds after generation:
 
 ```bash
-# Background removal — this skill's tool (upstream: ported from public PR #1707 (commit 1), @anikinsasha)
+# Background removal — this skill's tool
 bun Tools/RemoveBg.ts /path/to/output.png
 
 # Or batch process multiple images (each cut in place; needs --batch)

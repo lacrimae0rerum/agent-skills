@@ -8,7 +8,7 @@
  *   bun run Tools/FetchReport.ts --list-cached             # List downloaded reports
  *
  * Summaries are saved under $AGENT_SKILLS_HOME/annual-reports/Reports/ (Tools/lib/catalog.ts).
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'fs';

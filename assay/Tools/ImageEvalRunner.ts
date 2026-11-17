@@ -23,7 +23,7 @@
  *         - { type: dimensions, value: "1280x720", weight: 2 }
  *         - { type: vision-rubric, value: "...", anchors: {...}, weight: 2, trials: 2 }
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 
 import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs';

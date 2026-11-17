@@ -10,7 +10,7 @@
  *   ASSAY_PRIVATE_VENDORS   vendors allowed to see private images (default "anthropic,openai")
  *   ASSAY_INFERENCE_DISABLED   when set, every vision call refuses (assert-only runs)
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): JudgeCall.ts image judges and EvaluatorEgress.ts.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import { spawn, spawnSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs';

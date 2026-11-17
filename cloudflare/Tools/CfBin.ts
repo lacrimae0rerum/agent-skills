@@ -1,5 +1,5 @@
 // The pinned cf, installed once per version into the skill's data folder and run by its full path.
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+// Adapted from MIT-licensed code (see LICENSE.txt).
 // `bunx <pin>` re-links one shared temp dir on every call, so two overlapping calls broke each
 // other about 1 in 6 times ("Failed to link cf: EEXIST", a dist module not found). An installed
 // bin is never re-linked by a caller.

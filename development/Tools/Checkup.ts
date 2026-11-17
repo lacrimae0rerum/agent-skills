@@ -13,7 +13,7 @@
  * (alerts, bug reports, user complaints, security findings) are always listed under
  * `unavailable` so the run gathers them by hand (Intents/Checkup.md § Inputs).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * Exit codes: 0 gathered (findings or not), 2 bad input.
  */

@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/fonts.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * Local licensed fonts embedded into a composition as @font-face data URIs, with a load gate.
  *

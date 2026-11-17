@@ -1,7 +1,7 @@
 /**
  * The signature name stamped on essay headers and animated diagrams: ART_SIGNATURE, else "signature.text" in
- * $AGENT_SKILLS_HOME/art/ArtConfig.json. Empty when neither is set. Upstream signed with its assistant's
- * name; here the user picks the name, and an unconfigured signature is skipped with a notice.
+ * $AGENT_SKILLS_HOME/art/ArtConfig.json. Empty when neither is set. The user picks the
+ * name, and an unconfigured signature is skipped with a notice.
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';

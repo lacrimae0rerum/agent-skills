@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/FishTTS.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * Fish Audio text-to-speech for narrated pieces: audio plus word-level timings, so captions and
  * beat spans are timed from the synthesis itself and no second speech-to-text pass is needed.

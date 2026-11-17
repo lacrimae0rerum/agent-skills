@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): skills/Assay/Tools/Stats.ts (mean, sem, pairedDiff).
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * The statistics an EvalRound film round needs: a mean, and the paired difference of two arms with its
  * 95% confidence interval (Anthropic, "A Statistical Approach to Model Evaluations", Nov 2024: compare two

@@ -4,7 +4,7 @@
  * flipped-order Tournament judge.  This deliberately has its own record type:
  * binary rubric calibration cannot certify a pairwise preference path.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';

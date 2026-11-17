@@ -2,7 +2,7 @@
  * Explicitly invoked public-only capability probe. Synthesizes its own image; accepts no artifact paths.
  * One live call to the OpenAI vision seat: run it only when the user asks to check that seat.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import { deflateSync } from 'node:zlib';
 import { mkdtempSync, writeFileSync, unlinkSync, rmdirSync } from 'node:fs';

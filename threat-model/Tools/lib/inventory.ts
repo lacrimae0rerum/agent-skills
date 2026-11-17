@@ -1,7 +1,7 @@
 /**
  * inventory: the user's estate inventory, read-only, plus the graph queries the intents use.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt)
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * The asset-graph queries (blast, owns, exposed, injection, reach) and the parent risk
  * list come from one hand-kept JSON file instead of a collector-fed asset graph.

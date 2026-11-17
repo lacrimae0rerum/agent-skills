@@ -3,7 +3,7 @@
  * and full history. Built-in credential signatures are matched case-sensitively, the user's own patterns
  * case-insensitively. A hit is reported as `ref:path` locations and opaque rule ids only, never the matched line
  * or the pattern.
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt)
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * User patterns: $AGENT_SKILLS_HOME/open-source-management/deny-list.txt, one POSIX extended regex
  * (`git grep -E`) per line, `#` comments and blank lines ignored. Put there what must never be public:

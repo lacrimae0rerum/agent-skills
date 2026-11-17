@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/lib/CalibrateTaste.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * taste: the user's taste profile for one calibration target.
  *

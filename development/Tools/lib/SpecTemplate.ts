@@ -2,7 +2,7 @@
  * SpecTemplate — the one spec template version, and a spec's computed standing against it
  * (References/SpecFormat.md).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/lib/IsaTemplate.ts.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  * `conform()` reads a spec's own sections and says whether it meets the template, naming what
  * is missing. It never trusts the `spec_format:` stamp: a stamp claiming a version the file does
  * not meet is itself a finding (`stamp-unearned`). Only `SpecCheck.ts stamp` writes

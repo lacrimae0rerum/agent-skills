@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/probe.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * headless: run one expression in a page loaded by a local headless Chrome or Chromium, over the
  * DevTools protocol, with no npm dependency. Bake.ts uses it to let a page's scripts draw before

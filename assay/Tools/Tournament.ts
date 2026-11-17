@@ -15,8 +15,8 @@
  *   bun Tournament.ts --candidates a.png,b.png,c.png --question "which better recovers the argument?" [--generator <model-id>] [--json]
  * Exit 0 stable winner · 1 unstable (or every pair tied) · 2 verifier unavailable.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt). The upstream hosted judgment-layer first
- * tier for two-candidate pairs is not part of this port: the bracket always decides.
+ * Adapted from MIT-licensed code (see LICENSE.txt). There is no judgment-layer first
+ * tier for two-candidate pairs: the bracket always decides.
  */
 import { parseArgs } from 'node:util';
 import { randomUUID } from 'node:crypto';

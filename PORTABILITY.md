@@ -86,7 +86,7 @@ Change what portability needs; do not rewrite or shorten the rest.
 ## 6. Safety
 
 Actions with outside effect (post, publish, send, pay, order, delete, deploy) need the user's
-explicit confirmation of the exact action first. Keep upstream gates, written as steps.
+explicit confirmation of the exact action first. Keep existing confirmation gates, written as steps.
 
 ## 7. Verify
 

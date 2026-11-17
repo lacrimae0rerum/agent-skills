@@ -20,9 +20,9 @@ contract:
 
 **Contents:** Ideal State · Anti-criteria · Output format · Inputs · Tool contract · Gotchas
 
-Hero images for a series of concept cards (a site's philosophy, principles or ideas index) in the One Block style: every card is the same object, the Unit, changed by one physical move that carries the card's idea, in that card's own accent colour, shipped as a transparent cut-out. The same file is the page hero and the card thumbnail on the index. The series grammar below is the upstream One Block series; keep it as written for a new series, or change the Unit and rig once, up front, and hold them for every card.
+Hero images for a series of concept cards (a site's philosophy, principles or ideas index) in the One Block style: every card is the same object, the Unit, changed by one physical move that carries the card's idea, in that card's own accent colour, shipped as a transparent cut-out. The same file is the page hero and the card thumbnail on the index. The series grammar below is the One Block series; keep it as written for a new series, or change the Unit and rig once, up front, and hold them for every card.
 
-The series replaced the section-plate machines on 2026-10-19, when the upstream author picked this direction from four council concepts ("I like row 2, but remember that they're going to be transparent"). The section plates were judged too busy, and at thumbnail size viewers named the machine rather than the idea.
+The series replaced the section-plate machines on 2026-10-19, when this direction was picked from four council concepts ("I like row 2, but remember that they're going to be transparent"). The section plates were judged too busy, and at thumbnail size viewers named the machine rather than the idea.
 
 ## Ideal State
 
@@ -49,7 +49,7 @@ The series replaced the section-plate machines on 2026-10-19, when the upstream 
 
 ## Output format
 
-One image per card, a transparent cut-out that sits straight on the page, with no studio ground and no plate or box around it (upstream decision, 2026-09-27).
+One image per card, a transparent cut-out that sits straight on the page, with no studio ground and no plate or box around it (decision, 2026-09-27).
 
 ### Series grammar
 

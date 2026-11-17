@@ -7,7 +7,7 @@
  * inference helper resolves. A judge from a different vendor than the model under test is the
  * cross-vendor default the method asks for; set the variable to get it.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): JudgeCall.ts.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import { inference, type InferenceOptions, type InferenceResult, type InferenceVendor } from '../_portable/inference.ts';
 import { getEnv } from '../_portable/paths.ts';

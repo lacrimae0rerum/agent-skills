@@ -1,12 +1,11 @@
 #!/usr/bin/env bun
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/RemoveBg.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 
 /**
  * @version 1.6.0
  * remove-bg - Background Removal CLI
  *
  * Remove backgrounds from images using local rembg.
- * (Upstream ported it from public PR #1707 (commit 1), @anikinsasha.)
  *
  * Usage:
  *   remove-bg input.png                            # Overwrites original

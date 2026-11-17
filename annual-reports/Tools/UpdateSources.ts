@@ -9,7 +9,7 @@
  *
  * Compares against the current catalog (the refreshed copy, else the shipped seed) and writes
  * the refreshed catalog to $AGENT_SKILLS_HOME/annual-reports/sources.json (Tools/lib/catalog.ts).
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';

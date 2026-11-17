@@ -1,7 +1,7 @@
 /**
  * tts: narration audio with word timings, from a configurable text-to-speech provider.
  *
- * The Fish Audio client is adapted from the upstream MIT-licensed tool TOOLS/FishTTS.ts (see LICENSE.txt); the
+ * The Fish Audio client is adapted from MIT-licensed code (see LICENSE.txt); the
  * provider choice and the ElevenLabs client are new. No voice is built in: the voice id always comes from the
  * caller (the skill's config, the run, or a flag).
  *

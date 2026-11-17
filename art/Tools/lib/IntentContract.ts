@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/IntentContract.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * Intent contracts: an intent file's YAML frontmatter `contract:` block names the artifacts that must exist
  * before a render (`requires`), and the words a prompt must never or always carry (`bans`, `mandates`).

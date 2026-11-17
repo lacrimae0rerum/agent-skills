@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/VideoMeaning/source.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * Source loading: turn a post.json, a transcript.json, or a markdown file into
  * one normalized SourceDoc the prompts and the lints read.

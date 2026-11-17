@@ -1,7 +1,7 @@
 /**
  * Actual harness sessions, graded by the existing suite runner. No alternate grader.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';

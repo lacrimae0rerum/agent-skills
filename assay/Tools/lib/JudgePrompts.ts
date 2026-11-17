@@ -16,7 +16,7 @@
  *      the judge grades against THAT, never against its own reading of the
  *      title or the prompt.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/lib/JudgePrompts.ts.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import { createHash } from "node:crypto";
 

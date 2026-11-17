@@ -12,9 +12,9 @@
  * Every call runs through Tools/lib/JudgeCall.ts on the portable inference helper,
  * so any provider the user has configured can judge.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt). The upstream hosted
- * judgment-layer first pass (a probability engine asked before the model judge) is
- * not part of this port: every judged assert goes to the model judge.
+ * Adapted from MIT-licensed code (see LICENSE.txt). There is no
+ * judgment-layer first pass (a probability engine asked before the model judge):
+ * every judged assert goes to the model judge.
  */
 
 import type { Assertion, AssertResult } from './Assertions.ts';

@@ -48,7 +48,7 @@ bun Tools/Bake.ts <scratch>/<page>.html --out <scratch>/<page>-baked.html
 
 ## Gotchas
 
-- **A concept page drafted straight into the delivery folder skips the gate.** Upstream, a write guard refused such drafts and forced a full rewrite to scratch; here nothing enforces it, so draft in a scratch folder from the start and copy only bytes that passed the checks. (2026-10-06)
+- **A concept page drafted straight into the delivery folder skips the gate.** Nothing enforces this, so draft in a scratch folder from the start and copy only bytes that passed the checks. (2026-10-06)
 - **One syntax error blanks every drawing, silently.** `-(x)**2` is a JS syntax error (a unary minus before `**` needs parentheses), and it took the whole script down, leaving every canvas and SVG empty while the static text rendered. `Bake.ts --check` before any screenshot catches it. (2026-10-06)
 - **`Bake.ts` starts a fresh headless browser for every bake** and kills it afterwards, so no verifier is left over between runs. If it exits 3, no Chrome or Chromium could be started: install one, point `CHROME_PATH` at it, or add `CHROME_FLAGS=--no-sandbox` inside a container.
 - The share-host gotcha (scripts blocked under `Content-Security-Policy: sandbox`) is in SKILL.md § Gotchas.

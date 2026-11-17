@@ -201,7 +201,6 @@ function startTolerance(observations: Observation[]): number {
  * target yields null instead of a mislabelled window.
  *
  * `observations` must be sorted ascending by date.
- * public PR #2253, @davdunc
  */
 export function calculateTrend(observations: Observation[], years: number, isRate = false): TrendStat | null {
   if (observations.length < 2) return null;

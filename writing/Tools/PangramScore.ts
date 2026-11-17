@@ -2,8 +2,7 @@
 /**
  * PangramScore.ts — score text for AI-detectability via the Pangram API.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt)
- * The upstream run-record file is dropped; every other behaviour is kept.
+ * Adapted from MIT-licensed code (see LICENSE.txt). It writes no run-record file.
  *
  * Use it as a voice-eval probe: feed in anyone's writing and get back how much of
  * it reads as AI-generated. Lower fraction_ai = sounds more human.

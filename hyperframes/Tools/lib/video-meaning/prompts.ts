@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/VideoMeaning/prompts.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * Ideal-state prompts for the three judgment passes:
  * each states what a great artifact IS as testable qualities, the constraints that

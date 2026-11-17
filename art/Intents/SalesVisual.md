@@ -12,7 +12,7 @@ contract:
 
 **Contents:** Ideal State · Anti-criteria · Inputs · Tool contract · Output format · Gotchas · References
 
-A square, transparent-background charcoal gestural sketch for a sales narrative or value proposition, used by the `presentation` skill's Pitch intent (ported from the retired Sales skill, audit 2026-10-10; public PR #2128, @pai-scaffolde; split out of the Essay intent 2026-10-11 because Generate.ts refused it there).
+A square, transparent-background charcoal gestural sketch for a sales narrative or value proposition, used by the `presentation` skill's Pitch intent (split out of the Essay intent 2026-10-11 because Generate.ts refused it there).
 
 ## Ideal State
 

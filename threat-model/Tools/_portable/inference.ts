@@ -18,8 +18,7 @@
  * provider defaults below. `vendor` ("anthropic" | "openai") restricts the choice to that
  * vendor's API or CLI, for tools that need answers from a named vendor.
  *
- * The option and result shapes are a compatible subset of the upstream Inference tool,
- * so ported tools keep their call sites.
+ * The option and result shapes stay stable, so callers keep their call sites.
  */
 
 import { spawn, spawnSync } from "node:child_process";

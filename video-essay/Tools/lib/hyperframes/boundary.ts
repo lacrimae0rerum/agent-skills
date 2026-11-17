@@ -1,6 +1,6 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/lib/Boundary.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
- * The two path and write primitives the seam needs, copied from the upstream Boundary module:
+ * The two path and write primitives the seam needs, copied from a Boundary module:
  *
  *   confinedPath(root, p)      the real path of `p` when it stays inside `root`, else null. Every
  *                              existing component is resolved physically (symlinks followed, `..`

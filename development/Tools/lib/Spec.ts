@@ -2,8 +2,7 @@
  * Spec — parses the project spec the development skill builds against: frontmatter,
  * criteria, and the `## Test Strategy` table (References/SpecFormat.md).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): the criteria and Test Strategy
- * parsers in TOOLS/lib/IsaClaims.ts, TOOLS/lib/IsaTestStrategy.ts and hooks/lib/isa-utils.ts, cut down to
+ * Adapted from MIT-licensed code (see LICENSE.txt): criteria and Test Strategy parsers, cut down to
  * what a plain spec in any repo needs: no evals blocks, lanes, cadences or monitor rules.
  * Read-only except `writeFrontmatterField`, which returns new text and writes nothing.
  */

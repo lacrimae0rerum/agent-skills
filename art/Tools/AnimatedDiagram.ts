@@ -124,7 +124,7 @@ export function validateSpec(raw: unknown): Required<Pick<DiagramSpec, "width" |
     }
   }
   // The three type tiers are the TechnicalDiagrams look; a diagram without its title block reads as a bare flowchart
-  // (upstream decision, 2026-10-25: in-post diagrams shipped with no title or subtitle). Only a blog header or a deck slide omits it.
+  // (decision, 2026-10-25: in-post diagrams shipped with no title or subtitle). Only a blog header or a deck slide omits it.
   if (s.untitled !== undefined && !["blog-header", "deck"].includes(s.untitled)) problems.push(`untitled must be "blog-header" or "deck", got ${s.untitled}`);
   if (!s.untitled && !(s.title?.trim() && s.subtitle?.trim())) problems.push('title and subtitle are required (the wedge-serif tiers); set untitled: "blog-header" or "deck" only when the page or slide carries the title');
   if (s.untitled && (s.title || s.subtitle)) problems.push(`untitled: "${s.untitled}" carries no title block, but title or subtitle is set`);

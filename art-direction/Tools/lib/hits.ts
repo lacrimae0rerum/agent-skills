@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): skills/Art/Tools/EvalRound.ts (parseHitTimes).
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /** hits.md parsing for layout QA: the times at which a film's reveals land. */
 
 const TIME_HEADER = /^(?:t|s|time|times|sec|secs|seconds|at)\b|\b(?:time|sec|secs|seconds)\b/i;

@@ -76,8 +76,6 @@ export interface Risk {
    * estate row with no top-level parent is legitimate, but every open High or
    * Critical row should carry one so a failure here reads as "Rn detect went red"
    * one level up. Validated against the inventory when it lists top_risks.
-   * Registers written by the upstream version stored this as `telos_ref`; loadStore
-   * reads that field as parent_ref.
    */
   parent_ref?: string;
   /** The attack surface this row covers (e.g. `app-code`, `edge-config`), so findings on it have one home. */
@@ -119,11 +117,6 @@ function loadStore(dir: string): Store {
   if (!existsSync(p)) return { version: 1, updated: now(), risks: [] };
   const s = JSON.parse(readFileSync(p, "utf8")) as Store;
   if (s.version !== 1) throw new Error(`Unsupported store version ${s.version}`);
-  // Upstream registers named the parent link `telos_ref`; read it as parent_ref.
-  for (const r of s.risks as (Risk & { telos_ref?: string })[]) {
-    if (r.telos_ref !== undefined && r.parent_ref === undefined) r.parent_ref = r.telos_ref;
-    delete r.telos_ref;
-  }
   return s;
 }
 

@@ -44,7 +44,6 @@ bun run Tools/Generate.ts \
   --output "$ART_DIR"/mermaid-diagram.png
 ```
 
-<!-- upstream: ported from public PR #1707 (commit 1), @anikinsasha -->
 For blog or website use, put the page ground in the prompt ("background: flat [page ground colour and hex], no texture", the ground from `PREFERENCES.md` § Color palette) instead of cutting the background afterwards.
 
 Look at the image (read the image file so its pixels are in view) before judging it. Open it for the user only after the quality loop in SKILL.md passes:

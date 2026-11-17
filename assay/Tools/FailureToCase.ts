@@ -16,7 +16,7 @@
  * Drafts land at $AGENT_SKILLS_HOME/assay/Suites/_drafts/<name>.yaml
  * (the _drafts dir is excluded from SuiteManager listing until promoted).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';

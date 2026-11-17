@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/env.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * The environment and argument rules for every HyperFrames child process.
  *

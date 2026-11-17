@@ -8,7 +8,7 @@
  * Every source reports ok/failed with a count; a failed source never fails the run.
  * Output is one JSON document (see Collect.help.md for the schema).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  * @version 1.0.0
  */
 

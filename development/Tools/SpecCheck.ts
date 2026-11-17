@@ -20,7 +20,7 @@
  * Every subcommand is read-only except `stamp`, the one writer of a spec's
  * `checkup:` and `spec_format:` frontmatter keys.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): IsaCheck.ts of the Development skill.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * Exit codes: 0 clean, 1 findings, 2 bad input. `conform`: 0 latest, 1 not.
  * `stamp`: 0 when the checkup was written.

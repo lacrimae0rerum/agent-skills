@@ -1,6 +1,6 @@
 # CLI-First Architecture Pattern
 
-Adapted from the upstream MIT-licensed CLI-First Architecture standard (see `../LICENSE.txt`). It is the design standard every CLI that create-cli generates follows.
+Adapted from an MIT-licensed CLI-First Architecture standard (see `../LICENSE.txt`). It is the design standard every CLI that create-cli generates follows.
 
 **Philosophy**: Deterministic code execution > ad-hoc prompting
 

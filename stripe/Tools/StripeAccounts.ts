@@ -1,6 +1,6 @@
 /**
  * StripeAccounts.ts: one resolver for "which env var holds this Stripe account's secret key", shared by
- * StripeRead.ts and InvoiceWatch.ts. Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * StripeRead.ts and InvoiceWatch.ts. Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * Order: the `## Accounts` table in the user's Stripe Config.md (a row whose Alias column matches names its
  * Env var), then the derived name. The derived name is STRIPE_SECRET_KEY for no account or "main", otherwise

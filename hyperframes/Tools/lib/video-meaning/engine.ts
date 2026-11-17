@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/VideoMeaning/engine.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * VideoMeaning engine: the three judgment passes (map, direct, review), the
  * deterministic plan lint, the verdict, and the revise loop.

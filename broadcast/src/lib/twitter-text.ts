@@ -1,7 +1,7 @@
 /**
  * X/Twitter weighted-length validation without text mutation.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt). Keep it in step with the x-twitter skill's
+ * Adapted from MIT-licensed code (see LICENSE.txt). Keep it in step with the x-twitter skill's
  * Tools/TwitterText.ts, which validates the same text again before it posts.
  */
 

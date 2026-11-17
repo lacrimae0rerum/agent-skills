@@ -25,7 +25,7 @@
  * Tool contract: magick + tesseract required — an unavailable tool is an ERROR
  * result, never a silent pass (an unavailable verifier means defer, never pass).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 
 import { existsSync, statSync, readFileSync, rmSync } from 'node:fs';

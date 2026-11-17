@@ -20,4 +20,4 @@ Reached through this skill when the user asks for "claude research <question>" o
 
 ## Gotchas
 
-- There is no standalone command file for this intent (reported upstream, 2026): the command path an older header named never existed in the payload. The only way in is this skill's intent routing.
+- There is no standalone command file for this intent: the command path an older header named never existed in the payload. The only way in is this skill's intent routing.

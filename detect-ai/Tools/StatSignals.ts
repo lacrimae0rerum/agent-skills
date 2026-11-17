@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Adapted from the upstream MIT-licensed tool (see ../LICENSE.txt).
+// Adapted from MIT-licensed code (see ../LICENSE.txt).
 
 /**
  * StatSignals.ts — deterministic, keyless statistical AI-text signals.

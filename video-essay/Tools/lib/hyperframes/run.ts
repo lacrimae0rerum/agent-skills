@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/run.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * Process plumbing for the seam: bounded child processes, the macOS network sandbox, the
  * pinned `bun x hyperframes@<version>` invocation, and one-time provisioning.

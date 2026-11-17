@@ -18,8 +18,8 @@
  * regression; partial credit via weighted asserts; balanced should-do/should-not
  * via `not-*` and negative cases. Read transcripts — every run persists them.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt). The upstream hosted
- * judgment layer, proof receipts, router and state files are not part of this port.
+ * Adapted from MIT-licensed code (see LICENSE.txt). A hosted judgment layer, proof receipts,
+ * router and state files are not included.
  */
 
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';

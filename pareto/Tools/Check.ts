@@ -9,7 +9,7 @@
  * collected data; the past or current section carries no dated, linked source; the frontier section
  * has fewer than two links; or every frontier link is a top-reach item (a popularity summary).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  * @version 1.0.0
  */
 

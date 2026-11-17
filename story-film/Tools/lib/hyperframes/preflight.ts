@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/preflight.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * Static preflight: the rules HyperFrames' own lint does not enforce, checked over every
  * authored file in a project before anything launches a browser.

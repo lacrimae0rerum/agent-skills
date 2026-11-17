@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 /**
  * GeminiSearch.ts - Google Gemini grounded-search client
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * Multi-perspective web research via the Gemini API with Google Search grounding.
  * The research skill's Gemini slot (Standard and up).

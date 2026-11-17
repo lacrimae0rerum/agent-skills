@@ -14,7 +14,7 @@ Design interfaces using DirectDesign for in-code work, or NativeDesign for artbo
 - Every design lands as working code (or a picked artboard implemented) in the host app's framework, diffed against its existing tokens and components; a full redesign happens only when the user asked for one, and replacing existing UI otherwise is flagged and confirmed first.
 - The result looks made for its subject and its host app, never like a generic AI page: a named register, none of the forbidden defaults in `References/FrontendDesignPhilosophy.md`.
 - The path fits the ask: DirectDesign for in-code work, NativeDesign for comparing looks or design-system sync, and an ambiguous ask gets both paths offered by name, never routed silently.
-- Nothing reaches the user as a first draft (upstream directive, 2026-09-17): before it is shown, the rendered result has a real-browser capture (`Tools/VerifyDesign.ts`, or the agent's browser tools) and a critique that passed the bar (the `art-direction` skill's panel when installed, else the self-critique in § Tool contract), or a reported shortfall.
+- Nothing reaches the user as a first draft (directive, 2026-09-17): before it is shown, the rendered result has a real-browser capture (`Tools/VerifyDesign.ts`, or the agent's browser tools) and a critique that passed the bar (the `art-direction` skill's panel when installed, else the self-critique in § Tool contract), or a reported shortfall.
 
 ## Intent Routing
 

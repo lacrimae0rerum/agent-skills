@@ -10,7 +10,7 @@
  *
  * Store: $AGENT_SKILLS_HOME/calibrate/Targets/<target>/Taste.json (CALIBRATE_DIR overrides the root).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/lib/CalibrateTaste.ts.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';

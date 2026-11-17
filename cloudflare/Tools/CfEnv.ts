@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 // CfEnv: single-purpose helper used by the cloudflare skill's Deploy, Query and Troubleshoot intents.
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+// Adapted from MIT-licensed code (see LICENSE.txt).
 //
 // Spawns ONE cf CLI invocation with Cloudflare credentials scoped to the child process only. The
 // credentials come from the environment or from $AGENT_SKILLS_HOME/.env (default ~/.agent-skills/.env;

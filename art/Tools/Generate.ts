@@ -25,7 +25,7 @@ import { loadContract, verify, type IntentContract } from "./lib/IntentContract.
 import { getEnv, loadEnv, skillDataDir, skillRoot } from "./_portable/paths.ts";
 
 // ============================================================================
-// Model ids (env-overridable; upstream kept them in a shared model registry)
+// Model ids (env-overridable)
 // ============================================================================
 
 /** Read lazily, after loadEnv(), so a --dry-run never touches the env file. */
@@ -162,7 +162,7 @@ interface CLIArgs {
 const DEFAULTS = {
   model: "nano-banana-pro" as Model,
   size: "2K" as Size,
-  // AGENT_SKILLS_OUTPUT_DIR overrides ~/Downloads when set (upstream public PR #1535, @anikinsasha)
+  // AGENT_SKILLS_OUTPUT_DIR overrides ~/Downloads when set
   output: `${process.env.AGENT_SKILLS_OUTPUT_DIR || join(homedir(), "Downloads")}/generated-image.png`,
 };
 
@@ -387,7 +387,7 @@ MORE INFO:
  * invocation OR explicitly opt out via --freeform-confirmed.
  *
  * Background: the Art skill's "ALWAYS RUN A NAMED INTENT" doctrine used
- * to live in markdown only and was silently ignored (upstream rule).
+ * to live in markdown only and was silently ignored.
  * This gate is the code substitute for that doctrine.
  *
  * Behavior:
@@ -674,7 +674,7 @@ function parseArgs(argv: string[]): CLIArgs {
   }
 
   // ──────────────────────────────────────────────────────────────────────
-  // INTENT DISCIPLINE GATE (the load-bearing line; upstream rule)
+  // INTENT DISCIPLINE GATE (the load-bearing line)
   //
   // The Art skill's "ALWAYS RUN A NAMED INTENT" doctrine lives HERE, in code, because
   // stated in markdown alone it is silently ignored. Callers must name the intent that
@@ -769,7 +769,6 @@ async function addBackgroundColor(inputPath: string, outputPath: string, hexColo
 
 /**
  * The signature name: ART_SIGNATURE, else ArtConfig.json signature.text. Empty when not configured.
- * (Upstream signed with its assistant's name; here the user picks the name.)
  */
 export function signatureText(): string {
   return (getEnv("ART_SIGNATURE") ?? artSetting("signature").text ?? "").trim();
@@ -777,7 +776,7 @@ export function signatureText(): string {
 
 /**
  * Stamp the signature on a blog-header/essay image, in place.
- * Upstream rule: every essay/blog-header image is signed, bottom-right, in a cursive human-signature hand
+ * Rule: every essay/blog-header image is signed, bottom-right, in a cursive human-signature hand
  * (ArtConfig.json "signature"; SignPainter-HouseScript by default) — small and integrated into the artwork, not a
  * caption floating in the corner. Formal calligraphy faces remain banned (the
  * install's rejected list is in PREFERENCES.md § Signature). Stamped here, on the main output, BEFORE the

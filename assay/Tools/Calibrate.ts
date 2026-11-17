@@ -35,7 +35,7 @@
  * owns the criterion. Only --append-log appends it to that spec (the
  * interactive Calibrate intent); an unattended recheck never writes a spec.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';

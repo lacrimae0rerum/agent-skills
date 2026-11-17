@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/VideoMeaning/VideoMeaning.ts.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * VideoMeaning — the meaning layer for video: decompose a piece of content into a
  * MeaningMap, direct every beat from it, and review the plan before any render.

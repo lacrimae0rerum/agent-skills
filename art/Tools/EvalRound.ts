@@ -543,7 +543,7 @@ export const VIDEO_TOOLS = {
 
 /** The film gates an earlier hand-rolled per-film score.ts applied, now in one place. */
 export const FILM_GATES = { width: 1920, height: 1080, fps: 30, durationToleranceS: 0.5, minBeatsPer10s: 3.0, minMotion: 0.015 } as const;
-/** The upstream hill-climbing pairing rule: paired samples must sit at the same time in both films. */
+/** The hill-climbing pairing rule: paired samples must sit at the same time in both films. */
 export const PAIR_T_TOLERANCE_S = 0.05;
 export const VIDEO_KEEP_RULE = 'gates first (ffprobe, FilmStats, TextFit, seam check, beat grid, Proof when proof.json exists, TextFit layout every 0.5 s, then two-vendor layout QA on the hit frames of films whose code gates passed); survivors and the incumbent get k Critique readings with one shared sample seed; each sample is averaged over the k readings per vendor, paired with the incumbent by sample index and vendor, and a candidate is kept only when the 95% CI lower bound of the mean paired difference is above zero';
 
@@ -821,7 +821,7 @@ export function vendorMedians(readings: Reading[]): Record<string, number | null
 export interface PairedVerdict { status: 'keep' | 'revert' | 'error'; n: number; mean: number | null; ci95: [number, number] | null; vendors: string[]; reason: string }
 
 /**
- * The upstream hill-climbing paired rule, applied to a film round. Each sample is averaged across k readings per vendor, then paired
+ * The hill-climbing paired rule, applied to a film round. Each sample is averaged across k readings per vendor, then paired
  * with the incumbent's same sample index and vendor. Refused (error) when the films' sample counts differ or any
  * paired sample's time differs by more than 0.05 s. Keep only when the 95% CI lower bound of mean(candidate − incumbent) > 0.
  */

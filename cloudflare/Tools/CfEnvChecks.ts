@@ -1,7 +1,7 @@
 /**
  * CfEnvChecks.ts: the pure checks CfEnv.ts runs around a deploy, kept here so they can be tested
  * (CfEnv.ts acts on import: it reads argv, spawns cf and exits).
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * - `configCode` drops comments from cloudflare.config.ts before any declaration is read. cf compiles
  *   the config, so a commented-out `API_KEY: bindings.secret()` declares nothing and cf deploy deletes

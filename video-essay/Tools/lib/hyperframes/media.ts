@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/media.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * Output checks for every render: provenance strip, ffprobe contract, audio presence, and the
  * decoded-frame motion and blank-frame checks that make a silent still or a black video impossible to ship.

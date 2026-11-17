@@ -1,5 +1,5 @@
 /**
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/VideoMeaning/overlay.ts.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * Overlay-mode checks for footage of people talking (Video Enhance/Augment):
  * The Video caller is optional and NOT in the public release payload; these checks work without it.

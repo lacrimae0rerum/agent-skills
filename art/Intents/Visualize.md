@@ -77,7 +77,6 @@ bun run Tools/Generate.ts \
   --output "$ART_DIR"/visualization.png
 ```
 
-<!-- upstream: ported from public PR #1707 (commit 1), @anikinsasha -->
 **For transparent background** — use this skill's background-removal tool:
 
 ```bash

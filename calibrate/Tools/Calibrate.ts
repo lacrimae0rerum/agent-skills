@@ -18,7 +18,7 @@
  *   bun Calibrate.ts taste    --target <t> --write <draft.json>
  *   bun Calibrate.ts rescore  --target <t> [--session <id>] [--repeats 1] [--concurrency 4] [--dry-run]
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { createHash, randomBytes } from 'node:crypto';

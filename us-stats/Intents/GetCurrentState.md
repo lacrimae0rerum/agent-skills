@@ -2,7 +2,7 @@
 
 **Contents:** Ideal State · Anti-criteria · Inputs · Output format · Tool contract
 
-A comprehensive U.S. economic overview with multi-timeframe trend analysis: the report `GenerateAnalysis.ts` writes from its own FRED and EIA fetch, with 10y/5y/2y/1y trends and a cross-category read. Ported from the retired USMetrics skill on 2026-10-10 with nothing dropped. This is the live-government-data side of us-stats; the annual long-run almanac questions go to Analyze. Metric counts and sources for the live side are stated once, in SKILL.md's purpose paragraph.
+A comprehensive U.S. economic overview with multi-timeframe trend analysis: the report `GenerateAnalysis.ts` writes from its own FRED and EIA fetch, with 10y/5y/2y/1y trends and a cross-category read. This is the live-government-data side of us-stats; the annual long-run almanac questions go to Analyze. Metric counts and sources for the live side are stated once, in SKILL.md's purpose paragraph.
 
 ## Ideal State
 

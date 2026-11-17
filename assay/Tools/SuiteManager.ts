@@ -11,7 +11,7 @@
  *   bun SuiteManager.ts saturation [--runs 3]
  *   bun SuiteManager.ts graduate <suite>     # capability → regression (the user's suites only)
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';

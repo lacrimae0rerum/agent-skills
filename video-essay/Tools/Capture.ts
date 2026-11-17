@@ -50,7 +50,7 @@ const TILE_IMAGE_PX = 8000;
 
 /**
  * The capture browser: a headless copy of the render seam's pinned Chrome on a throwaway profile, driven over the
- * DevTools protocol. It stands where an interactive test-profile browser stood upstream: one page, opened at a fixed
+ * DevTools protocol. It holds one page, opened at a fixed
  * viewport and pixel ratio, evaluated in the page's main world (protocol evaluation is not subject to the page's CSP),
  * and shot full-page as real pixels. Killed with every child, and its profile removed, on close().
  */
@@ -415,7 +415,7 @@ const NEUTRALIZE_JS = `(() => {
  * A DOM-render screenshot (a browser tool that clones the page with every computed style inlined, serializes it into
  * an SVG `<foreignObject>` and rasterizes that) cannot see the page's `@font-face` rules, so every web font falls back
  * to Times while the layout boxes keep the web font's widths: caps faces rendered as lowercase and tags ran into each
- * other upstream. The capture browser shoots real pixels, which draw the web fonts directly; the embed stays as a
+ * other. The capture browser shoots real pixels, which draw the web fonts directly; the embed stays as a
  * belt-and-braces step and as the list of loaded families the font probes check. It embeds the faces the page
  * actually loaded as data-URL `@font-face` rules inside an inline `<svg><style>`, which a DOM render deep-clones, so
  * the rules travel into the image. Fonts come from readable stylesheets, or a stylesheet re-fetched when its

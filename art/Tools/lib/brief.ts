@@ -1,4 +1,4 @@
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): skills/ArtDirection/Tools/Critique.ts (Brief, parseBrief).
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * The Brief.json shape the `art-direction` critique reads. EvalRound checks a brief with parseBrief before it starts
  * a round, so a malformed brief fails in one second instead of after every judge has run.

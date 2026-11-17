@@ -8,7 +8,7 @@ Exhaustive reference of AI writing tells for auditing and rewriting content. Use
 
 **Companion to the user's own style guide, if they keep one** — a style guide defines how to write (voice, tone, style). This file defines what NOT to write (detection patterns, word tables, severity tiers). Some overlap with a style guide's compact "Forbidden" lists is intentional; this file has the same patterns plus severity, context sensitivity, and exhaustive word tables for systematic auditing.
 
-**Source:** Adapted from [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing) (MIT), merged with the upstream author's own writing rules. 2026-08-21: false agency, reader-steering frames, colon reveals, importance pre-announcements, sequencing scaffolds, the academic excess set, collocation gating, and the minimal-diff rewrite contract ported from [theclaymethod/unslop](https://github.com/theclaymethod/unslop) (MIT; their academic set cites Berens & Kobak, *Science Advances* 2024).
+**Source:** Adapted from [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing) (MIT), merged with additional writing rules. 2026-08-21: false agency, reader-steering frames, colon reveals, importance pre-announcements, sequencing scaffolds, the academic excess set, collocation gating, and the minimal-diff rewrite contract ported from [theclaymethod/unslop](https://github.com/theclaymethod/unslop) (MIT; their academic set cites Berens & Kobak, *Science Advances* 2024).
 
 ---
 

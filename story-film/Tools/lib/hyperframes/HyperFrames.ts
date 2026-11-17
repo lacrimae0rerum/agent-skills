@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/HyperFrames/HyperFrames.ts.
+// Adapted from MIT-licensed code (see LICENSE.txt).
 /**
  * HyperFrames seam: the one path every HyperFrames render goes through.
  *

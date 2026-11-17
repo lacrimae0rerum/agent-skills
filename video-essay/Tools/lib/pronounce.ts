@@ -1,7 +1,7 @@
 /**
  * pronounce: how the narrator turns written text into what it says.
  *
- * Adapted from the upstream MIT-licensed tools TOOLS/PronounceCore.ts and TOOLS/Pronounce.ts (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  * The narration runs this pass itself, before hashing, because the spoken text is the alignment and cache key.
  *
  * Two passes, in order:

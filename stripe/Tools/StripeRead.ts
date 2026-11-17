@@ -2,7 +2,7 @@
 /**
  * StripeRead.ts: read-only Stripe lookups as one bare command, so they run the same from a terminal and from an
  * unattended session. A checked-in GET-only tool is easier to allow than ad-hoc inline scripts that load secrets.
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * Usage (from the skill folder):
  *   bun Tools/StripeRead.ts promos [--all]            promotion codes with their coupon terms (active only unless --all)

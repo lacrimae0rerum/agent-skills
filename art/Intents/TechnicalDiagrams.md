@@ -71,7 +71,7 @@ bun run Tools/Generate.ts \
   --output /path/to/diagram.png
 ```
 
-Full page width and the signature (upstream decision, 2026-09-27): technical images render at the full width of the post column, so generate at `--aspect-ratio 16:9` (or 21:9) with the diagram spanning the whole frame width. Every technical image is signed with the configured signature name in the bottom-right of the artwork, visible, never out in empty canvas beside it. Generate.ts does both for `--intent=TechnicalDiagrams`: it trims to the art, stamps the signature inside it (`--no-signature` opts out), and fails any result whose trimmed aspect is below 1.4.
+Full page width and the signature (decision, 2026-09-27): technical images render at the full width of the post column, so generate at `--aspect-ratio 16:9` (or 21:9) with the diagram spanning the whole frame width. Every technical image is signed with the configured signature name in the bottom-right of the artwork, visible, never out in empty canvas beside it. Generate.ts does both for `--intent=TechnicalDiagrams`: it trims to the art, stamps the signature inside it (`--no-signature` opts out), and fails any result whose trimmed aspect is below 1.4.
 
 ### Animated Option (GIF)
 
@@ -172,14 +172,14 @@ When a diagram comes back bleached, thin, or pastel: regenerate immediately with
 
 ### Named registers
 
-- **A register the user names replaces the palette ground (2026-09-04, a profile hero image).** The upstream author rejected the warm-paper notebook version for its brown colour and asked for a dark-mono blueprint with engineering fonts, as a PNG from authored SVG in dark and light variants. AnimatedDiagram's `theme` field puts a diagram on a page's own colours, and its `-poster.png` is a static plate.
+- **A register the user names replaces the palette ground (2026-09-04, a profile hero image).** The warm-paper notebook version was rejected for its brown colour in favour of a dark-mono blueprint with engineering fonts, as a PNG from authored SVG in dark and light variants. AnimatedDiagram's `theme` field puts a diagram on a page's own colours, and its `-poster.png` is a static plate.
 
 ### Animated GIF path
 
 - **For a deck, match the deck's diagrams:** no title (`untitled: "deck"`), no signature, `strokeScale` about 1.8 and `typeScale` about 1.5, 3:2 for split slides and 21:9 (1920x824) for full ones. The optional `presentation` skill's KeynoteArt intent places the GIF, and every Lecture build sets it to start on slide entry, so it never waits for a click.
 - **Fonts come from `$AGENT_SKILLS_HOME/art/DiagramFonts.json`.** A missing role uses a generic family. The palette comes from `DiagramTheme.json` beside it (`AnimatedDiagram.help.md` § Palette). A configured file that is missing fails the build by name. The signature face lives in a system `.ttc` that cannot embed. Extract it once with `fonttools ttLib -y 0 <SignPainter.ttc> -o <cache>/SignPainter-HouseScript.ttf`, and repeat that on a new machine.
 - **GIF size grows with width × duration × moving pixels.** Flow dashes repaint every frame. If a GIF runs past about 5 MB, drop `--fps` to 12 or `--width` to 1000 before you cut content.
-- **The first frame is the GIF's face (upstream, 2026-10-01, a Keynote deck export).** A loop starting on bare paper failed every critique on an empty frame 0. A loop starting on the underdrawing made every animated slide in the Keynote export look faded out. `gif` therefore rotates the loop to open on the complete hold, and the underdrawing (`ghost`, on by default) keeps the redraw from ever showing bare paper.
+- **The first frame is the GIF's face (2026-10-01, a Keynote deck export).** A loop starting on bare paper failed every critique on an empty frame 0. A loop starting on the underdrawing made every animated slide in the Keynote export look faded out. `gif` therefore rotates the loop to open on the complete hold, and the underdrawing (`ghost`, on by default) keeps the redraw from ever showing bare paper.
 - **The critique panel reads mid-build frames as unfinished (2026-10-01, first test GIF).** In `Brief.json`, state that frames before the hold show a partial build on purpose. Otherwise the panel scores every mid-build frame as "unfinished".
 - **Quantising drifts the paper by a few levels per channel**, which shows as a faint box on a slide of the ground colour. `gif` pins the paper into the palette; check a corner pixel of the GIF if you change the ground.
 - **GIF has a 256-colour palette.** Flat fills and ink survive it; gradients and soft shadows band. The tool uses neither, so keep it that way.

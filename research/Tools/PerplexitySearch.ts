@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 /**
  * PerplexitySearch.ts - Perplexity Sonar API web research client
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * Real-time, grounded web research with inline citations via Perplexity's Sonar
  * models. Returns a synthesized answer plus a numbered citation list. The research

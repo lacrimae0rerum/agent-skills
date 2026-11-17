@@ -17,8 +17,8 @@
  * Directories are resolved PER CALL from the environment, never at import
  * (Tools/lib/AssayPaths.ts: ASSAY_CALIBRATION_DIR, ASSAY_RESULTS_DIR, ASSAY_SUITE_DIRS).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/lib/Calibration.ts. The upstream
- * label store, caller registry and router are not part of this port; the record itself carries earned.
+ * Adapted from MIT-licensed code (see LICENSE.txt). There is no label store, caller
+ * registry or router; the record itself carries earned.
  */
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, statSync, realpathSync } from "node:fs";

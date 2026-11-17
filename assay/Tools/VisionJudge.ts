@@ -17,7 +17,7 @@
  *   bun VisionJudge.ts rubric --image <f> --rubric "..." [--anchors '{"1":"...","5":"..."}'] [--trials 2]
  *   bun VisionJudge.ts pairwise --a <f> --b <f> --question "..." --public [--out <json>]   # Gemini: public images only
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 
 import { writeFileSync } from 'node:fs';

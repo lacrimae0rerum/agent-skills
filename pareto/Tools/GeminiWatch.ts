@@ -2,7 +2,7 @@
 /**
  * GeminiWatch — watch and listen to a PUBLIC YouTube video with Gemini and return
  * a near-verbatim transcript plus what is on screen and what the framing leaves out.
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * Gemini reads the public URL directly: nothing is downloaded or uploaded, and only the
  * URL leaves. Pareto's synthesis step uses it to read the videos that carry the argument.

@@ -1,7 +1,7 @@
 /**
  * voicetags: the Fish Audio Drama 3 performance tags a script may carry ([sigh], <emphasis>…</emphasis>).
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/VoiceTags.ts. Everything that shows or
+ * Adapted from MIT-licensed code (see LICENSE.txt). Everything that shows or
  * measures text calls stripVoiceTags; only a provider that understands the tags (Fish) receives them.
  */
 

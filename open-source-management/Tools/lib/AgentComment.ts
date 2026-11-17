@@ -1,7 +1,7 @@
 /**
  * AgentComment — every GitHub comment the agent posts on the user's behalf says so. Comments go out from the
  * user's own account, so without this a reader cannot tell the agent's words from the user's.
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt)
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  * Names come from config, never hardcoded.
  *
  *   > [!NOTE]

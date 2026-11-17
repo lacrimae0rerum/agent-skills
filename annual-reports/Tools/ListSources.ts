@@ -9,7 +9,7 @@
  *   bun run Tools/ListSources.ts --vendor <name>    # List all reports from vendor
  *
  * Reads the refreshed catalog when UPDATE has run, else the seed (Tools/lib/catalog.ts).
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 
 import { existsSync, readFileSync } from 'fs';

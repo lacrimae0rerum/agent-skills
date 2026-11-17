@@ -1,5 +1,5 @@
 /**
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt): TOOLS/VideoMeaning/schema.ts.
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  *
  * VideoMeaning schema — the MeaningMap (what a piece of content means) and the
  * Direction (what the viewer sees at every beat, and why).

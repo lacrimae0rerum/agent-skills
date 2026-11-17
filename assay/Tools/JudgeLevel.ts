@@ -10,7 +10,7 @@
  * is at least as capable as the work it grades, so the ceiling rises to the subject's rung when the caller
  * names the subject; with no subject named the ceiling stays `high`.
  *
- * Adapted from the upstream MIT-licensed tool (see LICENSE.txt).
+ * Adapted from MIT-licensed code (see LICENSE.txt).
  */
 import type { InferenceLevel as EffortLevel } from './_portable/inference.ts';
 
